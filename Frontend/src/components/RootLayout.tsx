@@ -1,0 +1,192 @@
+import { Outlet, Link, useLocation, useNavigation } from "react-router";
+import { useAuth } from "@/hooks/useAuth";
+import { Zap, Moon, Sun } from "lucide-react";
+import { useEffect } from "react";
+import { apiClient } from "@/api/apiClient";
+import { useTheme } from "@/hooks/useTheme";
+
+const navLinks = [
+    { to: "/", label: "Home" },
+    { to: "/projects", label: "Projects" },
+    { to: "/daily", label: "Daily" },
+    { to: "/devlog", label: "DevLog" },
+    { to: "/components", label: "Components" },
+];
+
+export function RootLayout() {
+    const { pathname } = useLocation();
+    const navigation = useNavigation();
+    const { user, isLoggedIn, isAdminModeEnbaled, toggleAdminMode, logout } = useAuth();
+    const { theme, toggleTheme } = useTheme();
+    const isNavigating = navigation.state === "loading" || navigation.state === "submitting";
+
+    const isAdmin = user?.email === "ych0911y@gmail.com" || user?.email === "admin@chportfolio.dev";
+
+    // Send exactly one tracking ping per page per session
+    useEffect(() => {
+        const sessionKey = `tracked:${pathname} `;
+        if (sessionStorage.getItem(sessionKey)) return; // already tracked this path this session
+        sessionStorage.setItem(sessionKey, "1");
+
+        // Fire-and-forget — don't block navigation
+        apiClient.post("/api/track", { path: pathname }).catch(() => { });
+    }, [pathname]);
+
+    return (
+        <div className="min-h-screen flex flex-col bg-brutal-bg relative">
+            {/* ─── Global Route Loading Bar ─── */}
+            <div
+                className={`fixed top - 0 left - 0 h - 1.5 bg - brutal - cyan z - [100] transition - all ease - out shadow - [0_2px_10px_rgba(140, 255, 251, 0.5)] ${isNavigating ? "w-2/3 duration-[3000ms] opacity-100" : "w-full duration-300 opacity-0"
+                    } `}
+            />
+            {/* ─── Navbar ─── */}
+            <header className="sticky top-0 z-50 bg-brutal-bg border-b-2 border-black dark:border-gray-700">
+                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                    {/* Brand */}
+                    <Link
+                        to="/"
+                        className="font-heading font-bold text-2xl tracking-tight text-brutal-black
+                                   hover:text-brutal-purple transition-colors"
+                    >
+                        CH<span className="text-brutal-purple">.</span>
+                    </Link>
+
+                    <nav className="flex-1 flex items-center justify-end overflow-hidden ml-2 sm:ml-4">
+                        <div className="flex items-center gap-1 md:gap-4 overflow-x-auto py-3 px-2 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden flex-nowrap w-full justify-start md:justify-end">
+                            {navLinks.map(({ to, label }, index) => {
+                                const isActive = pathname === to || (to !== "/" && pathname.startsWith(to));
+                                return (
+                                    <Link
+                                        key={to}
+                                        to={to}
+                                        className={[
+                                            "flex-shrink-0 px-4 md:px-5 py-2 font-heading font-semibold text-sm",
+                                            "border-2 border-transparent transition-all duration-150 rounded-sm",
+                                            "hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_#000] dark:hover:shadow-[4px_4px_0px_0px_#333] active:translate-y-0 active:shadow-none",
+                                            "animate-fade-in",
+                                            isActive
+                                                ? "bg-brutal-yellow border-black dark:border-gray-700 brutal-shadow-sm"
+                                                : "hover:bg-brutal-yellow hover:border-black dark:hover:border-gray-700",
+                                        ].filter(Boolean).join(" ")}
+                                        style={{ animationDelay: `${index * 50} ms`, animationFillMode: "both" }}
+                                    >
+                                        {label}
+                                    </Link>
+                                );
+                            })}
+                        </div>
+
+                    </nav>
+
+                    <div className="flex items-center gap-2">
+                        {/* Theme Toggle Button */}
+                        <button
+                            onClick={toggleTheme}
+                            className={`flex-shrink-0 flex items-center justify-center w-10 h-10 border-2 border-black dark:border-gray-700 rounded-full transition-all shadow-[2px_2px_0px_0px_#000] dark:shadow-[2px_2px_0px_0px_#333] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none bg-brutal-bg text-brutal-black hover:bg-brutal-yellow ml-2`}
+                            aria-label="Toggle dark mode"
+                        >
+                            {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                        </button>
+
+                        {isLoggedIn && isAdmin && (
+                            <button
+                                onClick={toggleAdminMode}
+                                className={`flex-shrink-0 flex items-center gap-2 px-3 sm:px-4 py-2 border-2 border-black dark:border-gray-700 font-heading font-black text-xs sm:text-sm uppercase transition-all shadow-[4px_4px_0px_0px_#000] dark:shadow-[4px_4px_0px_0px_#333] hover:translate-x-1 hover:translate-y-1 hover:shadow-none ${isAdminModeEnbaled ? "bg-brutal-pink text-white" : "bg-brutal-white text-brutal-black"
+                                    }`}
+                            >
+                                <Zap className="w-4 h-4" />
+                                <span className="hidden sm:inline">{isAdminModeEnbaled ? "GOD MODE ON" : "GOD MODE OFF"}</span>
+                                <span className="sm:hidden">{isAdminModeEnbaled ? "ON" : "OFF"}</span>
+                            </button>
+                        )}
+                    </div>
+                </div>
+            </header>
+
+            {/* ─── Main Content ─── */}
+            <main className="flex-1 flex flex-col items-center">
+                <div className="max-w-7xl w-full mx-auto pb-16">
+                    <Outlet />
+                </div>
+            </main>
+
+            {/* ─── Footer ─── */}
+            <footer className="border-t-2 border-black dark:border-gray-700 bg-brutal-bg text-brutal-black mt-auto">
+                <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between gap-8">
+                    <p className="font-heading font-bold text-xl">
+                        CH<span className="text-brutal-yellow">.</span> Portfolio
+                    </p>
+                    <p className="text-sm text-brutal-muted font-mono">
+                        Built with React 19 + .NET 10 · Monash MIT
+                    </p>
+                    <div className="flex gap-4">
+                        <a
+                            href="https://github.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-5 py-2 border-2 border-black dark:border-gray-600 font-heading font-bold text-sm
+                                       hover:bg-brutal-yellow hover:text-black hover:border-black transition-all"
+                        >
+                            GitHub
+                        </a>
+                        <a
+                            href="https://linkedin.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-5 py-2 border-2 border-black dark:border-gray-600 font-heading font-bold text-sm
+                                       hover:bg-brutal-cyan hover:text-black hover:border-black transition-all"
+                        >
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </footer>
+
+            {/* ─── Floating User Widget ─── */}
+            {pathname !== "/login" && (
+                <div className="fixed bottom-6 right-6 z-50 animate-fade-in flex flex-col items-end gap-2">
+                    {isLoggedIn ? (
+                        <div className="group relative">
+                            <div className="bg-brutal-yellow border-4 border-black dark:border-gray-700 p-3 rounded-full cursor-pointer shadow-[4px_4px_0px_0px_#000] dark:shadow-[4px_4px_0px_0px_#333] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all relative after:absolute after:-inset-4 after:content-[''] after:rounded-full">
+                                <span className="font-heading font-black text-lg uppercase leading-none block">
+                                    {user?.email.substring(0, 2)}
+                                </span>
+                            </div>
+
+                            {/* Hover Menu */}
+                            <div className="absolute bottom-full right-0 mb-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all flex flex-col gap-2 min-w-[120px]">
+                                <div className="bg-brutal-white border-4 border-black dark:border-gray-700 p-2 text-center brutal-shadow-sm pointer-events-none">
+                                    <p className="font-mono text-xs font-bold truncate max-w-[150px]">{user?.email}</p>
+                                </div>
+                                {isAdmin && (
+                                    <Link
+                                        to="/admin"
+                                        className="bg-brutal-pink text-black border-4 border-black dark:border-gray-700 px-4 py-2 font-heading font-black text-sm uppercase text-center shadow-[4px_4px_0px_0px_#000] dark:shadow-[4px_4px_0px_0px_#333] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all w-full"
+                                    >
+                                        Admin
+                                    </Link>
+                                )}
+                                <button
+                                    onClick={() => {
+                                        logout();
+                                        window.location.href = "/";
+                                    }}
+                                    className="bg-brutal-red text-white border-4 border-black dark:border-gray-700 px-4 py-2 font-heading font-black text-sm uppercase shadow-[4px_4px_0px_0px_#000] dark:shadow-[4px_4px_0px_0px_#333] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all w-full"
+                                >
+                                    Logout
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <Link
+                            to="/login"
+                            className="bg-brutal-cyan text-black border-4 border-black dark:border-gray-700 px-6 py-3 rounded-full font-heading font-black text-base uppercase shadow-[4px_4px_0px_0px_#000] dark:shadow-[4px_4px_0px_0px_#333] hover:bg-brutal-pink hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all flex items-center justify-center relative after:absolute after:-inset-4 after:content-[''] after:rounded-full"
+                        >
+                            LOGIN
+                        </Link>
+                    )}
+                </div>
+            )}
+        </div>
+    );
+}
