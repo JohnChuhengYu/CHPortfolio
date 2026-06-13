@@ -55,7 +55,7 @@ export function DevLogListPage() {
     });
 
     return (
-        <div className="max-w-[1600px] w-full mx-auto px-6 md:px-12 py-16">
+        <div className="w-full mx-auto px-6 md:px-12 xl:px-24 py-16">
             {/* Header */}
             <div className="mb-12">
                 <h1 className="font-heading text-5xl md:text-7xl font-bold mb-4 inline-block relative">

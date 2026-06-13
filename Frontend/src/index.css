@@ -1,0 +1,554 @@
+@import "tailwindcss";
+
+/* ============================================
+   NEO-BRUTALISM DESIGN SYSTEM
+   ============================================ */
+
+/* --- Tailwind v4 Theme Extension --- */
+@theme {
+  /* Typography */
+  --font-heading: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+
+  /* Neo-Brutalism Colors */
+  --color-brutal-bg: var(--theme-bg);
+  --color-brutal-white: var(--theme-white);
+  --color-brutal-black: var(--theme-black);
+  --color-brutal-border: var(--theme-border);
+  --color-brutal-yellow: var(--theme-yellow);
+  --color-brutal-purple: var(--theme-purple);
+  --color-brutal-cyan: var(--theme-cyan);
+  --color-brutal-red: var(--theme-red);
+  --color-brutal-pink: var(--theme-pink);
+  --color-brutal-blue: var(--theme-blue);
+  --color-brutal-green: var(--theme-green);
+  --color-brutal-orange: var(--theme-orange);
+  --color-brutal-lime: var(--theme-lime);
+  --color-brutal-indigo: var(--theme-indigo);
+  --color-brutal-rose: var(--theme-rose);
+  --color-brutal-amber: var(--theme-amber);
+  --color-brutal-emerald: var(--theme-emerald);
+  --color-brutal-fuchsia: var(--theme-fuchsia);
+  --color-brutal-violet: var(--theme-violet);
+  --color-brutal-sky: var(--theme-sky);
+  --color-brutal-muted: var(--theme-muted);
+
+  /* Shadows - Softened for Minimalist look */
+  --shadow-brutal: 4px 4px 0px 0px #000;
+  --shadow-brutal-sm: 2px 2px 0px 0px #000;
+  --shadow-brutal-hover: 2px 2px 0px 0px #000;
+  --shadow-brutal-active: 0px 0px 0px 0px #000;
+
+  /* Border radius — Neo-Brutalism uses minimal rounding */
+  --radius-brutal: 0px;
+  --radius-brutal-sm: 4px;
+}
+
+:root {
+  --theme-bg: #fdfbf7;
+  --theme-white: #ffffff;
+  --theme-black: #1a1a1a;
+  --theme-border: #000000;
+  --theme-yellow: #ffde59;
+  --theme-purple: #cb6ce6;
+  --theme-cyan: #8cfffb;
+  --theme-red: #ff5757;
+  --theme-pink: #ff85a1;
+  --theme-blue: #85b6ff;
+  --theme-green: #51cf66;
+  --theme-orange: #ffa94d;
+  --theme-lime: #a3e635;
+  --theme-indigo: #6366f1;
+  --theme-rose: #f43f5e;
+  --theme-amber: #f59e0b;
+  --theme-emerald: #10b981;
+  --theme-fuchsia: #d946ef;
+  --theme-violet: #8b5cf6;
+  --theme-sky: #0ea5e9;
+  --theme-muted: #6b7280;
+}
+
+html.dark {
+  --theme-bg: #0f0f0f;
+  --theme-white: #1e1e1e;
+  --theme-black: #e8e6e3;
+  --theme-border: #333333;
+  --theme-yellow: #facc15;
+  --theme-purple: #a855f7;
+  --theme-cyan: #22d3ee;
+  --theme-red: #ef4444;
+  --theme-pink: #ec4899;
+  --theme-blue: #3b82f6;
+  --theme-green: #22c55e;
+  --theme-orange: #f97316;
+  --theme-lime: #84cc16;
+  --theme-indigo: #6366f1;
+  --theme-rose: #f43f5e;
+  --theme-amber: #f59e0b;
+  --theme-emerald: #10b981;
+  --theme-fuchsia: #d946ef;
+  --theme-violet: #8b5cf6;
+  --theme-sky: #0ea5e9;
+  --theme-muted: #a1a1aa;
+}
+
+/* --- Global Base Styles --- */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scrollbar-gutter: stable;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--theme-bg);
+  color: var(--theme-black);
+  line-height: 1.7;
+  /* Increased for breathing room */
+  min-height: 100vh;
+}
+
+/* --- Typography Scale --- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+code,
+pre,
+.font-mono {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* --- Neo-Brutalism Utility Classes --- */
+
+/* Hard Shadow */
+.brutal-shadow {
+  box-shadow: 4px 4px 0px 0px #000;
+}
+
+.brutal-shadow-sm {
+  box-shadow: 2px 2px 0px 0px #000;
+}
+
+/* Border - Thinner for Minimalist look */
+.brutal-border {
+  border: 2px solid #000;
+}
+
+.brutal-border-thin {
+  border: 1px solid #000;
+}
+
+.brutal-border-thick {
+  border: 3px solid #000;
+}
+
+/* Interactive States — "Button Press" Physics with Bounce */
+.brutal-interactive {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.brutal-interactive:hover {
+  transform: translate(-4px, -4px) scale(1.02);
+  box-shadow: 8px 8px 0px 0px #000;
+}
+
+.brutal-interactive:active {
+  transform: translate(2px, 2px) scale(0.96);
+  box-shadow: 0px 0px 0px 0px #000;
+}
+
+/* Press-down effect */
+.brutal-press {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.brutal-press:hover {
+  transform: translate(2px, 2px) scale(0.98);
+  box-shadow: 2px 2px 0px 0px #000;
+}
+
+.brutal-press:active {
+  transform: translate(4px, 4px) scale(0.94);
+  box-shadow: 0px 0px 0px 0px #000;
+}
+
+/* --- Dark Mode Overrides for Utility Classes --- */
+html.dark .brutal-shadow {
+  box-shadow: 4px 4px 0px 0px #333;
+}
+
+html.dark .brutal-shadow-sm {
+  box-shadow: 2px 2px 0px 0px #333;
+}
+
+html.dark .brutal-border {
+  border-color: #333;
+}
+
+html.dark .brutal-border-thin {
+  border-color: #333;
+}
+
+html.dark .brutal-border-thick {
+  border-color: #333;
+}
+
+html.dark .brutal-interactive:hover {
+  box-shadow: 8px 8px 0px 0px #333;
+}
+
+html.dark .brutal-press:hover {
+  box-shadow: 2px 2px 0px 0px #333;
+}
+
+/* --- Dynamic Entry Animations --- */
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  60% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out both;
+}
+
+.animate-pop-in {
+  animation: pop-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-150 {
+  animation-delay: 150ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+/* --- Neo-Brutalism Markdown Code Block Styling --- */
+.brutal-prose pre {
+  border: 3px solid #000;
+  box-shadow: 6px 6px 0px 0px #000;
+  background-color: #41516f;
+  /* Lighter dark gray to contrast with black border */
+  color: #f8f8f2;
+  padding: 1.5rem;
+  /* Increased padding */
+  overflow-x: auto;
+  font-size: 0.9rem;
+  margin: 2rem 0;
+  /* Increased margin */
+}
+
+/* Custom scrollbar for markdown code blocks */
+
+.brutal-prose pre code::-webkit-scrollbar {
+  height: 14px !important;
+  -webkit-appearance: none !important;
+  /* Force display on Mac */
+}
+
+.brutal-prose pre code::-webkit-scrollbar-track {
+  background: #2b2d31 !important;
+  /* Dark background track */
+  border: 3px solid #000 !important;
+  border-radius: 0 !important;
+}
+
+.brutal-prose pre code::-webkit-scrollbar-thumb {
+  background: #ffffff !important;
+  /* White thumb for clean contrast */
+  border: 4px solid #000 !important;
+  border-top: 3px solid #000 !important;
+  /* Match track border top */
+  border-radius: 0 !important;
+  /* Force square brutalist look */
+  box-shadow: inset 1px 1px 0px rgba(0, 0, 0, 0.5);
+  /* Optional retro touch */
+}
+
+.brutal-prose code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.875em;
+}
+
+/* Strip highlight.js nested background so it inherits from the pre block */
+code.hljs,
+pre.hljs,
+.hljs {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: inherit;
+  padding: 0;
+}
+
+.brutal-prose p code {
+  background-color: #ffde59;
+  color: #000;
+  border: 2px solid #000;
+  padding: 0.15em 0.4em;
+  font-size: 0.85em;
+}
+
+.brutal-prose blockquote {
+  border-left: 4px solid #000;
+  background-color: #8cfffb;
+  color: #000;
+  padding: 1.25rem 1.75rem;
+  /* Increased padding */
+  margin: 2rem 0;
+  /* Increased margin */
+  font-weight: 500;
+}
+
+.brutal-prose h1,
+.brutal-prose h2,
+.brutal-prose h3 {
+  margin-top: 3rem;
+  /* Increased margin */
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.03em;
+}
+
+.brutal-prose p {
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+}
+
+.brutal-prose ul,
+.brutal-prose ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+}
+
+.brutal-prose img {
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0px 0px #000;
+  margin: 2rem 0;
+  /* Added margin for images */
+}
+
+/* --- Scrollbar Color Transitions --- */
+/* Native root scrollbars aren't part of the DOM tree, so they can't be screenshotted by View Transitions */
+/* We use @property to smoothly fade their colors instead! */
+@property --sb-bg {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #fdfbf7;
+}
+
+@property --sb-thumb {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #1a1a1a;
+}
+
+@property --sb-border {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #000000;
+}
+
+@property --sb-hover {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #ffde59;
+}
+
+@property --sb-width {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 10px;
+}
+
+html {
+  --sb-bg: #fdfbf7;
+  --sb-thumb: #1a1a1a;
+  --sb-border: #000000;
+  --sb-hover: #ffde59;
+  --sb-width: 10px;
+  padding-right: calc(10px - var(--sb-width));
+  transition: --sb-bg 0.4s ease-in-out, --sb-thumb 0.4s ease-in-out, --sb-border 0.4s ease-in-out, --sb-hover 0.4s ease-in-out, --sb-width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+html.hide-scrollbar {
+  --sb-width: 0px;
+}
+
+html.dark {
+  --sb-bg: #0f0f0f;
+  --sb-thumb: #e8e6e3;
+  --sb-border: #333333;
+  --sb-hover: #facc15;
+}
+
+/* --- Scrollbar Styling --- */
+::-webkit-scrollbar {
+  width: var(--sb-width);
+  height: var(--sb-width);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--sb-bg);
+  border-left: 2px solid var(--sb-border);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb);
+  border: 2px solid var(--sb-border);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sb-hover);
+}
+
+/* --- Selection Color --- */
+::selection {
+  background-color: var(--theme-yellow);
+  color: var(--theme-black);
+}
+
+/* --- Focus Ring (Accessibility) --- */
+:focus-visible {
+  outline: 3px solid #000;
+  outline-offset: 2px;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* --- View Transitions API Dark Mode Reveal --- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/*
+  Z-Index Logic (evaluated AFTER the DOM callback toggles .dark):
+
+  Dark → Light (.dark is REMOVED after callback):
+    old = dark screenshot → must be on TOP (shrinks away)
+    new = light screenshot → on bottom
+
+  Light → Dark (.dark is ADDED after callback):
+    old = light screenshot → on bottom
+    new = dark screenshot → must be on TOP (expands out)
+*/
+
+/* Default (no .dark = Dark → Light transition) */
+::view-transition-old(root) {
+  z-index: 9999;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* When .dark present (Light → Dark transition) */
+.dark::view-transition-old(root) {
+  z-index: 1;
+}
+
+.dark::view-transition-new(root) {
+  z-index: 9999;
+}

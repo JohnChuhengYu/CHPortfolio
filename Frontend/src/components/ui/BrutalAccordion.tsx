@@ -52,7 +52,7 @@ export const BrutalAccordion = forwardRef<HTMLDivElement, BrutalAccordionProps>(
                                 />
                             </button>
                             {isExpanded && (
-                                <div className="p-4 bg-gray-50 dark:bg-gray-800 text-brutal-black text-base font-medium animate-fade-in origin-top">
+                                <div className="p-4 bg-transparent text-brutal-black text-base font-medium animate-fade-in origin-top">
                                     {item.content}
                                 </div>
                             )}
