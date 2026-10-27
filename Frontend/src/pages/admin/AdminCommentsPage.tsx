@@ -181,9 +181,13 @@ export function AdminCommentsPage() {
                         </div>
                     ))
                 ) : (
-                    <div className="border-4 border-black border-dashed p-12 text-center">
-                        <p className="font-heading font-black text-2xl text-gray-400 uppercase">
-                            No comments yet.
+                    <div className="bg-brutal-white border-4 border-black dark:border-gray-700 brutal-shadow p-12 text-center text-brutal-black max-w-xl mx-auto flex flex-col items-center gap-4">
+                        <div className="w-16 h-16 bg-brutal-pink border-4 border-black dark:border-gray-700 brutal-shadow-sm flex items-center justify-center -rotate-3 text-black">
+                            <MessageSquare className="w-8 h-8" />
+                        </div>
+                        <h3 className="font-heading font-black text-2xl uppercase">No Comments Yet</h3>
+                        <p className="font-mono text-sm text-gray-500 dark:text-gray-400 font-bold uppercase max-w-sm">
+                            Discussions will show up here as visitors share their feedback on your projects and posts.
                         </p>
                     </div>
                 )}

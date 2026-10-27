@@ -1,8 +1,9 @@
 import { Link } from "react-router";
 import { BrutalCard } from "@/components/ui/BrutalCard";
 import { BrutalBadge } from "@/components/ui/BrutalBadge";
+import { BrutalButton } from "@/components/ui/BrutalButton";
 import { TerminalType } from "@/components/ui/MotionEffects";
-import { ArrowRight, ServerCrash } from "lucide-react";
+import { ArrowRight, ServerCrash, Terminal } from "lucide-react";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { gridItemsApi } from "@/api/gridItems";
@@ -80,8 +81,18 @@ export function DevLogListPage() {
                 </div>
             )}
             {devlogs.length === 0 && !isError && (
-                <div className="mb-8 p-8 bg-gray-100 dark:bg-gray-800 flex flex-col items-center justify-center border-4 border-black dark:border-gray-700 border-dashed">
-                    <p className="font-heading text-2xl font-bold text-gray-400">NO DEVLOGS FOUND IN DATABASE.</p>
+                <div className="p-12 md:p-16 bg-brutal-white border-4 border-black dark:border-gray-700 brutal-shadow flex flex-col items-center justify-center text-center max-w-xl mx-auto my-8">
+                    <div className="w-16 h-16 bg-brutal-cyan border-3 border-black dark:border-gray-700 rounded-full flex items-center justify-center mb-6 brutal-shadow-sm text-black">
+                        <Terminal className="w-8 h-8" />
+                    </div>
+                    <BrutalBadge color="cyan" className="mb-4 text-xs font-mono">STATUS: NO_LOGS_INDEXED</BrutalBadge>
+                    <h3 className="font-heading text-2xl md:text-3xl font-black mb-3 text-brutal-black">DEVLOG EMPTY</h3>
+                    <p className="text-brutal-muted max-w-md text-sm md:text-base mb-6">
+                        No articles published yet. Stay tuned for architectural breakdowns, tutorials, and postmortems!
+                    </p>
+                    <Link to="/projects">
+                        <BrutalButton variant="primary" size="md">Explore Projects</BrutalButton>
+                    </Link>
                 </div>
             )}
 

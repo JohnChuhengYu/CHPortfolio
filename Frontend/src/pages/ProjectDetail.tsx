@@ -201,7 +201,7 @@ export function ProjectDetail() {
 
             {/* Image Preview Area */}
             {(displayData.imageUrl || isAdminModeEnbaled) && (
-                <div className="mb-16 border-8 border-black dark:border-gray-700 shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-2 hover:translate-y-2 transition-all overflow-hidden group relative bg-gray-100 dark:bg-gray-800 min-h-[200px] flex items-center justify-center">
+                <div className="mb-16 border-8 border-black dark:border-gray-700 shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] dark:shadow-[16px_16px_0px_0px_#333] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_#333] hover:translate-x-2 hover:translate-y-2 transition-all overflow-hidden group relative bg-gray-100 dark:bg-gray-800 min-h-[200px] flex items-center justify-center">
                     {displayData.imageUrl ? (
                         <img src={displayData.imageUrl} alt="Cover" className="w-full h-auto object-cover max-h-[60vh]" />
                     ) : (
@@ -231,7 +231,7 @@ export function ProjectDetail() {
                                     />
                                     <label
                                         htmlFor="cover-upload"
-                                        className="bg-brutal-cyan text-black px-6 py-4 border-4 border-black dark:border-gray-700 font-heading font-black cursor-pointer hover:bg-brutal-yellow transition-colors text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 inline-flex items-center gap-2"
+                                        className="bg-brutal-cyan text-black px-6 py-4 border-4 border-black dark:border-gray-700 font-heading font-black cursor-pointer hover:bg-brutal-yellow transition-colors text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_#333] hover:shadow-none hover:translate-x-1 hover:translate-y-1 inline-flex items-center gap-2"
                                         onClick={(e) => e.stopPropagation()}
                                     >
                                         <Upload className="w-6 h-6" />
@@ -259,7 +259,7 @@ export function ProjectDetail() {
                             placeholder="WRITE MARKDOWN HERE..."
                         />
                     ) : (
-                        <div className="mt-6 prose prose-lg prose-brutal max-w-none font-mono">
+                        <div className="mt-6 brutal-prose max-w-none font-mono">
                             <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
                                 {displayData.problemDescription || '*No challenge description provided.*'}
                             </ReactMarkdown>
@@ -280,7 +280,7 @@ export function ProjectDetail() {
                             placeholder="WRITE MARKDOWN HERE..."
                         />
                     ) : (
-                        <div className="mt-6 prose prose-lg prose-brutal max-w-none font-mono">
+                        <div className="mt-6 brutal-prose max-w-none font-mono">
                             <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
                                 {displayData.solutionDescription || '*No solution description provided.*'}
                             </ReactMarkdown>
@@ -315,7 +315,7 @@ export function ProjectDetail() {
                                 />
                                 <label
                                     htmlFor="gallery-upload"
-                                    className="bg-brutal-yellow text-black px-6 py-3 border-4 border-black dark:border-gray-700 font-heading font-black uppercase cursor-pointer hover:bg-black hover:text-white transition-colors text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 inline-flex items-center gap-2"
+                                    className="bg-brutal-yellow text-black px-6 py-3 border-4 border-black dark:border-gray-700 font-heading font-black uppercase cursor-pointer hover:bg-black hover:text-white transition-colors text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_#333] hover:shadow-none hover:translate-x-1 hover:translate-y-1 inline-flex items-center gap-2"
                                 >
                                     <Upload className="w-5 h-5" />
                                     {uploadGalleryMutation.isPending ? "ADDING..." : "ADD PHOTOS"}
@@ -332,7 +332,7 @@ export function ProjectDetail() {
                                         <img src={imgUrl} alt={`Gallery ${idx + 1}`} className="w-full h-auto aspect-video object-cover border-2 border-black dark:border-gray-700" />
                                         <button
                                             onClick={() => handleRemoveGalleryImage(idx)}
-                                            className="absolute -top-4 -right-4 bg-brutal-red text-white p-2 border-4 border-black dark:border-gray-700 hover:scale-110 transition-transform shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] z-10"
+                                            className="absolute -top-4 -right-4 bg-brutal-red text-white p-2 border-4 border-black dark:border-gray-700 hover:scale-110 transition-transform shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_#333] z-10"
                                             title="Remove Image"
                                         >
                                             <X className="w-6 h-6" />
@@ -395,7 +395,7 @@ export function ProjectDetail() {
                 <button
                     onClick={() => updateMutation.mutate(editData)}
                     disabled={updateMutation.isPending}
-                    className="fixed bottom-12 right-12 z-50 bg-brutal-pink border-4 border-black dark:border-gray-700 px-8 py-6 font-heading font-black text-4xl uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-2 hover:translate-y-2 transition-all flex items-center gap-4 text-white cursor-pointer"
+                    className="fixed bottom-12 right-12 z-50 bg-brutal-pink border-4 border-black dark:border-gray-700 px-8 py-6 font-heading font-black text-4xl uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_#333] hover:shadow-none hover:translate-x-2 hover:translate-y-2 transition-all flex items-center gap-4 text-white cursor-pointer"
                 >
                     <Save className="w-10 h-10" />
                     {updateMutation.isPending ? "SAVING..." : "SAVE CHANGES"}

@@ -162,7 +162,7 @@ export function AdminLogin() {
                 {/* Decorative & Interactive Elements */}
                 <button
                     onClick={handleExit}
-                    className="absolute -top-6 -left-6 w-14 h-14 bg-brutal-yellow border-4 border-brutal-border rounded-full flex items-center justify-center brutal-shadow-sm hover:bg-brutal-white hover:scale-110 transition-all z-10 group text-black dark:hover:text-white"
+                    className="absolute -top-6 -left-6 w-14 h-14 bg-brutal-yellow border-4 border-brutal-border rounded-full flex items-center justify-center brutal-shadow-sm hover:bg-brutal-white hover:scale-110 transition-all z-10 group text-black"
                     title="Return Home"
                     type="button"
                 >
@@ -171,7 +171,7 @@ export function AdminLogin() {
 
                 <button
                     onClick={toggleTheme}
-                    className="absolute -top-6 -right-6 w-14 h-14 bg-brutal-bg border-4 border-brutal-border rounded-full flex items-center justify-center brutal-shadow-sm hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none hover:bg-brutal-yellow hover:text-black transition-all z-10 text-brutal-black"
+                    className="absolute -top-6 -right-6 w-14 h-14 bg-brutal-yellow border-4 border-black dark:border-gray-700 rounded-full flex items-center justify-center brutal-shadow-sm hover:scale-110 hover:bg-brutal-white transition-all z-10 text-black"
                     title="Toggle Dark Mode"
                     type="button"
                 >

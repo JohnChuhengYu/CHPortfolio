@@ -43,10 +43,10 @@ export const BrutalBadge = forwardRef<HTMLSpanElement, BrutalBadgeProps>(
                     "transition-all duration-150 ease-out",
 
                     // Hover态：向左上偏移，阴影加深（悬浮感）
-                    "hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_0_#000]",
+                    "hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_0_#000] dark:hover:shadow-[6px_6px_0_0_#333]",
 
                     // Active态：向右下受压，阴影减小（物理按压感）
-                    "active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0_0_#000] active:duration-75",
+                    "active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0_0_#000] dark:active:shadow-[2px_2px_0_0_#333] active:duration-75",
 
                     // 颜色配置
                     badgeColorStyles[color],

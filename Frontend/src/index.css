@@ -420,6 +420,40 @@ pre.hljs,
   /* Added margin for images */
 }
 
+/* --- Dark Mode Overrides for Brutal Prose --- */
+html.dark .brutal-prose pre {
+  border-color: #444;
+  box-shadow: 6px 6px 0px 0px #222;
+  background-color: #1a1e24;
+}
+
+html.dark .brutal-prose pre code::-webkit-scrollbar-track {
+  background: #14161a !important;
+  border-color: #444 !important;
+}
+
+html.dark .brutal-prose pre code::-webkit-scrollbar-thumb {
+  background: #facc15 !important;
+  border-color: #444 !important;
+}
+
+html.dark .brutal-prose p code {
+  background-color: rgba(250, 204, 21, 0.15);
+  color: #facc15;
+  border-color: #ca8a04;
+}
+
+html.dark .brutal-prose blockquote {
+  border-left-color: #22d3ee;
+  background-color: rgba(34, 211, 238, 0.12);
+  color: #e8e6e3;
+}
+
+html.dark .brutal-prose img {
+  border-color: #444;
+  box-shadow: 4px 4px 0px 0px #222;
+}
+
 /* --- Scrollbar Color Transitions --- */
 /* Native root scrollbars aren't part of the DOM tree, so they can't be screenshotted by View Transitions */
 /* We use @property to smoothly fade their colors instead! */

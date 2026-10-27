@@ -9,12 +9,12 @@ interface BrutalButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantStyles: Record<BrutalButtonVariant, string> = {
-    primary: "bg-brutal-yellow text-black",
-    secondary: "bg-brutal-purple text-white",
-    danger: "bg-brutal-red text-white",
-    cyan: "bg-brutal-cyan text-black",
-    ghost: "bg-transparent text-current",
-    black: "bg-gray-800 text-white dark:bg-gray-700",
+    primary: "bg-brutal-yellow text-black hover:brightness-105",
+    secondary: "bg-brutal-purple text-white hover:brightness-105",
+    danger: "bg-brutal-red text-white hover:brightness-105",
+    cyan: "bg-brutal-cyan text-black hover:brightness-105",
+    ghost: "bg-transparent text-current hover:bg-black/10 dark:hover:bg-white/10",
+    black: "bg-black text-white hover:bg-gray-900 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:border-gray-600",
 };
 
 const sizeStyles: Record<BrutalButtonSize, string> = {

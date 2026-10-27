@@ -14,6 +14,23 @@ import {
 import { useState } from "react";
 import { motion } from "framer-motion";
 
+const showcaseColors = [
+    { name: "yellow", bg: "bg-brutal-yellow" },
+    { name: "cyan", bg: "bg-brutal-cyan" },
+    { name: "pink", bg: "bg-brutal-pink" },
+    { name: "purple", bg: "bg-brutal-purple" },
+    { name: "red", bg: "bg-brutal-red" },
+    { name: "orange", bg: "bg-brutal-orange" },
+    { name: "lime", bg: "bg-brutal-lime" },
+    { name: "indigo", bg: "bg-brutal-indigo" },
+    { name: "rose", bg: "bg-brutal-rose" },
+    { name: "amber", bg: "bg-brutal-amber" },
+    { name: "emerald", bg: "bg-brutal-emerald" },
+    { name: "fuchsia", bg: "bg-brutal-fuchsia" },
+    { name: "violet", bg: "bg-brutal-violet" },
+    { name: "sky", bg: "bg-brutal-sky" },
+];
+
 export function PublicComponentsPage() {
     const [progress, setProgress] = useState(85);
     const [autoMode, setAutoMode] = useState(true);
@@ -67,8 +84,8 @@ export function PublicComponentsPage() {
                                     <p className="text-lg">Solid backgrounds. Thick black borders. Zero drop-shadow blur.</p>
                                 </div>
                                 <div className="flex gap-3 flex-wrap flex-1 justify-end">
-                                    {['yellow', 'cyan', 'pink', 'purple', 'red', 'orange', 'lime', 'indigo', 'rose', 'amber', 'emerald', 'fuchsia', 'violet', 'sky'].map((color) => (
-                                        <div key={color} className={`w-12 h-12 md:w-20 md:h-20 bg-brutal-${color} border-4 border-black brutal-shadow transition-transform hover:-translate-y-2`} title={color} />
+                                    {showcaseColors.map((color) => (
+                                        <div key={color.name} className={`w-12 h-12 md:w-20 md:h-20 ${color.bg} border-4 border-black dark:border-gray-700 brutal-shadow transition-transform hover:-translate-y-2`} title={color.name} />
                                     ))}
                                 </div>
                             </div>
@@ -111,9 +128,9 @@ export function PublicComponentsPage() {
                                 <div className="flex flex-col gap-2">
                                     <label className="font-heading font-bold text-sm">MESSAGE</label>
                                     <textarea
-                                        className="font-heading px-4 py-3 text-lg border-3 border-black bg-white
+                                        className="font-heading px-4 py-3 text-lg border-3 border-black dark:border-gray-700 bg-brutal-white text-brutal-black
                                                    brutal-shadow-sm placeholder:text-brutal-muted
-                                                   focus:outline-none focus:shadow-[6px_6px_0px_0px_#000]
+                                                   focus:outline-none focus:shadow-[6px_6px_0px_0px_#000] dark:focus:shadow-[6px_6px_0px_0px_#333]
                                                    transition-shadow duration-150 resize-y min-h-[100px]"
                                         placeholder="Type your message..."
                                     />
@@ -146,7 +163,7 @@ export function PublicComponentsPage() {
                 {/* ─── Feedback & Progress ─── */}
                 <CreativeCardReveal className="lg:col-span-6" delay={0.1}>
                     <HoverTiltCard>
-                        <BrutalCard color="yellow" className="h-full p-8 md:p-12">
+                        <BrutalCard color="white" className="h-full p-8 md:p-12 border-4">
                             <h2 className="font-heading text-4xl font-black mb-8">System Feedback</h2>
                             <div className="flex flex-col gap-6">
                                 <BrutalAlert type="success" title="System Online">All services operating within normal parameters.</BrutalAlert>
@@ -196,8 +213,8 @@ export function PublicComponentsPage() {
                             <h2 className="font-heading text-4xl font-black mb-8">Motion & Typography</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 {/* Text Effects */}
-                                <div className="flex flex-col gap-6 p-6 border-3 border-black bg-brutal-white text-brutal-black brutal-shadow-sm">
-                                    <h3 className="font-heading font-bold text-lg border-b-2 border-black pb-2">Dynamic Text</h3>
+                                <div className="flex flex-col gap-6 p-6 border-3 border-black dark:border-gray-700 bg-brutal-white text-brutal-black brutal-shadow-sm">
+                                    <h3 className="font-heading font-bold text-lg border-b-2 border-black dark:border-gray-700 pb-2">Dynamic Text</h3>
                                     <div className="text-2xl font-bold font-heading">
                                         <WavyText text="Wavy Text" />
                                     </div>
@@ -213,8 +230,8 @@ export function PublicComponentsPage() {
                                 </div>
 
                                 {/* Element Reveals */}
-                                <div className="flex flex-col gap-6 p-6 border-3 border-black bg-brutal-white text-brutal-black brutal-shadow-sm">
-                                    <h3 className="font-heading font-bold text-lg border-b-2 border-black pb-2">Element Reveals</h3>
+                                <div className="flex flex-col gap-6 p-6 border-3 border-black dark:border-gray-700 bg-brutal-white text-brutal-black brutal-shadow-sm">
+                                    <h3 className="font-heading font-bold text-lg border-b-2 border-black dark:border-gray-700 pb-2">Element Reveals</h3>
                                     <div className="text-2xl font-bold font-heading inline-block">
                                         <BlockReveal>Block Reveal</BlockReveal>
                                     </div>
@@ -224,8 +241,8 @@ export function PublicComponentsPage() {
                                 </div>
 
                                 {/* Accents */}
-                                <div className="flex flex-col gap-8 p-6 border-3 border-black bg-brutal-white text-brutal-black brutal-shadow-sm">
-                                    <h3 className="font-heading font-bold text-lg border-b-2 border-black pb-2">Accents</h3>
+                                <div className="flex flex-col gap-8 p-6 border-3 border-black dark:border-gray-700 bg-brutal-white text-brutal-black brutal-shadow-sm">
+                                    <h3 className="font-heading font-bold text-lg border-b-2 border-black dark:border-gray-700 pb-2">Accents</h3>
                                     <div className="text-2xl font-bold font-heading relative inline-block w-max">
                                         Draw Underline
                                         <DrawUnderline className="-rotate-2" />

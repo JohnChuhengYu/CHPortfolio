@@ -84,13 +84,13 @@ export function CommentSection({ gridItemId }: CommentSectionProps) {
                     comments.map((comment) => (
                         <div
                             key={comment.id}
-                            className={`p-4 border-4 border-black dark:border-gray-700 relative group transition-all text-brutal-black ${user?.email === comment.userName ? 'bg-brutal-yellow bg-opacity-20' : 'bg-brutal-bg'}`}
+                            className={`p-4 border-4 border-black dark:border-gray-700 relative group transition-all text-brutal-black ${user?.email === comment.userName ? 'bg-brutal-yellow/20 border-brutal-yellow' : 'bg-brutal-bg'}`}
                         >
                             <div className="flex justify-between items-start mb-2">
                                 <div className="font-heading font-bold text-lg">
                                     {comment.userName.split('@')[0]}
                                     {isAdminModeEnbaled && (comment.userName === 'admin@chportfolio.dev' || comment.userName === 'ych0911y@gmail.com') && (
-                                        <span className="ml-2 text-xs bg-black text-white px-2 py-1 uppercase">Admin</span>
+                                        <span className="ml-2 text-xs bg-black text-white px-2 py-1 uppercase border border-black dark:border-gray-600">Admin</span>
                                     )}
                                 </div>
                                 <div className="font-mono text-xs text-gray-500 bg-brutal-white border-2 border-black dark:border-gray-700 px-2 py-1">
@@ -108,7 +108,7 @@ export function CommentSection({ gridItemId }: CommentSectionProps) {
                                         }
                                     }}
                                     disabled={deleteMutation.isPending}
-                                    className={`absolute -top-3 -right-3 bg-brutal-red text-white p-2 border-2 border-black dark:border-gray-700 transition-all hover:scale-110 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] disabled:opacity-50 ${isAdminModeEnbaled ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
+                                    className={`absolute -top-3 -right-3 bg-brutal-red text-white p-2 border-2 border-black dark:border-gray-700 transition-all hover:scale-110 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_#333] disabled:opacity-50 ${isAdminModeEnbaled ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
                                     title="Delete Comment"
                                 >
                                     <Trash2 className="w-4 h-4" />
@@ -135,7 +135,7 @@ export function CommentSection({ gridItemId }: CommentSectionProps) {
                         <button
                             type="submit"
                             disabled={!newComment.trim() || createMutation.isPending}
-                            className="self-end bg-black text-white px-8 py-3 font-heading font-black uppercase flex items-center gap-2 border-4 border-black dark:border-gray-700 hover:bg-brutal-cyan hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
+                            className="self-end bg-black text-white px-8 py-3 font-heading font-black uppercase flex items-center gap-2 border-4 border-black dark:border-gray-700 hover:bg-brutal-cyan hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_#333] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
                         >
                             {createMutation.isPending ? "Posting..." : (
                                 <>
@@ -149,7 +149,7 @@ export function CommentSection({ gridItemId }: CommentSectionProps) {
                         <p className="font-heading font-black text-xl mb-4">You must be logged in to comment.</p>
                         <a
                             href="/login"
-                            className="inline-block bg-brutal-purple text-white px-6 py-2 font-heading font-black uppercase border-4 border-black dark:border-gray-700 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
+                            className="inline-block bg-brutal-purple text-white px-6 py-2 font-heading font-black uppercase border-4 border-black dark:border-gray-700 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_#333] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
                         >
                             Log In / Register
                         </a>

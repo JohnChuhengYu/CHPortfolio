@@ -3,7 +3,7 @@ import { BrutalCard } from "@/components/ui/BrutalCard";
 import { BrutalBadge } from "@/components/ui/BrutalBadge";
 import { BrutalButton } from "@/components/ui/BrutalButton";
 import { BlockReveal } from "@/components/ui/MotionEffects";
-import { Github, ArrowRight, ServerCrash } from "lucide-react";
+import { Github, ArrowRight, ServerCrash, FolderGit2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { gridItemsApi } from "@/api/gridItems";
@@ -68,8 +68,18 @@ export function ProjectsPage() {
             )}
 
             {projects.length === 0 && !isError && (
-                <div className="mb-8 p-8 bg-gray-100 dark:bg-gray-800 flex flex-col items-center justify-center border-4 border-black dark:border-gray-700 border-dashed">
-                    <p className="font-heading text-2xl font-bold text-gray-400">NO PROJECTS FOUND IN DATABASE.</p>
+                <div className="p-12 md:p-16 bg-brutal-white border-4 border-black dark:border-gray-700 brutal-shadow flex flex-col items-center justify-center text-center max-w-xl mx-auto my-8">
+                    <div className="w-16 h-16 bg-brutal-yellow border-3 border-black dark:border-gray-700 rounded-full flex items-center justify-center mb-6 brutal-shadow-sm text-black">
+                        <FolderGit2 className="w-8 h-8" />
+                    </div>
+                    <BrutalBadge color="yellow" className="mb-4 text-xs font-mono">STATUS: EMPTY_VAULT</BrutalBadge>
+                    <h3 className="font-heading text-2xl md:text-3xl font-black mb-3 text-brutal-black">NO PROJECTS FOUND</h3>
+                    <p className="text-brutal-muted max-w-md text-sm md:text-base mb-6">
+                        No projects have been seeded yet or the API backend is connecting. Check back soon or explore the design system.
+                    </p>
+                    <Link to="/components">
+                        <BrutalButton variant="cyan" size="md">Explore Design System</BrutalButton>
+                    </Link>
                 </div>
             )}
 

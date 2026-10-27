@@ -10,8 +10,8 @@ import { Trash2 } from "lucide-react";
 
 function BrutalLineChart({ data, isLoading }: { data: any[], isLoading: boolean }) {
   const [mode, setMode] = useState<"total" | "unique">("total");
-  if (isLoading) return <div className="h-64 flex items-center justify-center font-mono text-sm animate-pulse border-4 border-black bg-white brutal-shadow">CALCULATING ANALYTICS...</div>;
-  if (!data || data.length === 0) return <div className="h-64 flex items-center justify-center font-mono text-sm border-4 border-black bg-white brutal-shadow">NO DATA AVAILABLE</div>;
+  if (isLoading) return <div className="h-64 flex items-center justify-center font-mono text-sm animate-pulse border-4 border-black dark:border-gray-700 bg-brutal-white text-brutal-black brutal-shadow">CALCULATING ANALYTICS...</div>;
+  if (!data || data.length === 0) return <div className="h-64 flex items-center justify-center font-mono text-sm border-4 border-black dark:border-gray-700 bg-brutal-white text-brutal-black brutal-shadow">NO DATA AVAILABLE</div>;
 
   const getValue = (d: any) => mode === "total" ? d.totalViews : d.uniqueVisitors;
   const maxCount = Math.max(...data.map(getValue), 5);
@@ -33,22 +33,22 @@ function BrutalLineChart({ data, isLoading }: { data: any[], isLoading: boolean 
       <div className="flex flex-col mb-8 border-b-4 border-black dark:border-gray-700 pb-4 text-brutal-black">
         <div className="flex justify-between items-start mb-4">
           <h3 className="font-heading font-black text-2xl uppercase italic leading-none">Views Trend</h3>
-          <div className="flex border-2 border-black divide-x-2 divide-black overflow-hidden shadow-[2px_2px_0px_0px_#000]">
+          <div className="flex border-2 border-black dark:border-gray-700 divide-x-2 divide-black dark:divide-gray-700 overflow-hidden shadow-[2px_2px_0px_0px_#000] dark:shadow-[2px_2px_0px_0px_#333]">
             <button
               onClick={() => setMode("total")}
-              className={`px-3 py-1 font-mono text-[10px] uppercase font-bold transition-all ${mode === "total" ? "bg-black text-white" : "bg-white hover:bg-gray-100"}`}
+              className={`px-3 py-1 font-mono text-[10px] uppercase font-bold transition-all ${mode === "total" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-white dark:bg-gray-800 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"}`}
             >
               Total
             </button>
             <button
               onClick={() => setMode("unique")}
-              className={`px-3 py-1 font-mono text-[10px] uppercase font-bold transition-all ${mode === "unique" ? "bg-black text-white" : "bg-white hover:bg-gray-100"}`}
+              className={`px-3 py-1 font-mono text-[10px] uppercase font-bold transition-all ${mode === "unique" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-white dark:bg-gray-800 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"}`}
             >
               Unique
             </button>
           </div>
         </div>
-        <span className="font-mono text-[10px] border-2 border-black px-2 py-0.5 uppercase font-bold w-fit">
+        <span className="font-mono text-[10px] border-2 border-black dark:border-gray-700 px-2 py-0.5 uppercase font-bold w-fit">
           Last 14 Days ({mode === "total" ? "Total Hits" : "Unique Visitors"})
         </span>
       </div>
@@ -60,22 +60,22 @@ function BrutalLineChart({ data, isLoading }: { data: any[], isLoading: boolean 
             const val = Math.round(maxCount - (i * maxCount / 4));
             return (
               <g key={i}>
-                <line x1={padding} y1={y} x2={width - padding} y2={y} stroke="#eee" strokeWidth="1" />
+                <line x1={padding} y1={y} x2={width - padding} y2={y} stroke="currentColor" className="text-gray-200 dark:text-gray-700" strokeWidth="1" />
                 <text x={padding - 10} y={y + 4} textAnchor="end" className="text-[10px] font-mono fill-gray-400 font-bold">{val}</text>
               </g>
             );
           })}
 
           {/* Main Path with Shadow */}
-          <path d={pathD} fill="none" stroke="black" strokeWidth="10" strokeLinejoin="round" />
+          <path d={pathD} fill="none" stroke="currentColor" className="text-black dark:text-gray-900" strokeWidth="10" strokeLinejoin="round" />
           <path d={pathD} fill="none" stroke={mode === "total" ? "#A3E635" : "#38BDF8"} strokeWidth="5" strokeLinejoin="round" />
 
           {/* Points */}
           {points.map((p, i) => (
             <g key={i} className="cursor-pointer group/point">
-              <circle cx={p.x} cy={p.y} r="6" fill="black" />
-              <circle cx={p.x} cy={p.y} r="3" fill="white" className="group-hover/point:fill-brutal-lime transition-colors" />
-              <text x={p.x} y={p.y - 12} textAnchor="middle" className="text-[12px] font-heading font-black hidden group-hover/point:block fill-black">{p.count}</text>
+              <circle cx={p.x} cy={p.y} r="6" className="fill-black dark:fill-gray-700" />
+              <circle cx={p.x} cy={p.y} r="3" className="fill-white dark:fill-gray-200 group-hover/point:fill-brutal-lime transition-colors" />
+              <text x={p.x} y={p.y - 12} textAnchor="middle" className="text-[12px] font-heading font-black hidden group-hover/point:block fill-black dark:fill-white">{p.count}</text>
               <text x={p.x} y={height - 10} textAnchor="middle" className="text-[8px] font-mono fill-gray-500 font-bold">{i % 2 === 0 ? p.date : ""}</text>
             </g>
           ))}
@@ -87,15 +87,15 @@ function BrutalLineChart({ data, isLoading }: { data: any[], isLoading: boolean 
 
 function BrutalHeatMap({ data, isLoading }: { data: any[], isLoading: boolean }) {
   const [mode, setMode] = useState<"total" | "unique">("total");
-  if (isLoading) return <div className="h-32 bg-white border-4 border-black brutal-shadow animate-pulse" />;
+  if (isLoading) return <div className="h-32 bg-brutal-white border-4 border-black dark:border-gray-700 brutal-shadow animate-pulse" />;
   const squares = [...(data || [])];
 
   const getValue = (d: any) => mode === "total" ? d.totalViews : d.uniqueVisitors;
   const maxVal = Math.max(...squares.map(getValue), 5);
 
   const colors = mode === "total"
-    ? ["bg-gray-100", "bg-brutal-lime/30", "bg-brutal-lime/60", "bg-brutal-lime/90", "bg-brutal-lime"]
-    : ["bg-gray-100", "bg-brutal-sky/30", "bg-brutal-sky/60", "bg-brutal-sky/90", "bg-brutal-sky"];
+    ? ["bg-gray-100 dark:bg-gray-800", "bg-brutal-lime/30", "bg-brutal-lime/60", "bg-brutal-lime/90", "bg-brutal-lime"]
+    : ["bg-gray-100 dark:bg-gray-800", "bg-brutal-sky/30", "bg-brutal-sky/60", "bg-brutal-sky/90", "bg-brutal-sky"];
 
   return (
     <div className="bg-brutal-white border-4 border-black dark:border-gray-700 brutal-shadow p-5">
@@ -103,18 +103,18 @@ function BrutalHeatMap({ data, isLoading }: { data: any[], isLoading: boolean })
       <div className="mb-4 border-b-4 border-black dark:border-gray-700 pb-3 text-brutal-black">
         <div className="flex items-center justify-between gap-2 mb-2">
           <h3 className="font-heading font-black text-lg uppercase italic leading-none">Engagement</h3>
-          <div className="flex border-2 border-black divide-x-2 divide-black overflow-hidden shadow-[2px_2px_0px_0px_#000] flex-shrink-0">
+          <div className="flex border-2 border-black dark:border-gray-700 divide-x-2 divide-black dark:divide-gray-700 overflow-hidden shadow-[2px_2px_0px_0px_#000] dark:shadow-[2px_2px_0px_0px_#333] flex-shrink-0">
             <button
               onClick={() => setMode("total")}
-              className={`px-2 py-0.5 font-mono text-[9px] uppercase font-bold transition-all ${mode === "total" ? "bg-black text-white" : "bg-white hover:bg-gray-100"}`}
+              className={`px-2 py-0.5 font-mono text-[9px] uppercase font-bold transition-all ${mode === "total" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-white dark:bg-gray-800 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"}`}
             >Total</button>
             <button
               onClick={() => setMode("unique")}
-              className={`px-2 py-0.5 font-mono text-[9px] uppercase font-bold transition-all ${mode === "unique" ? "bg-black text-white" : "bg-white hover:bg-gray-100"}`}
+              className={`px-2 py-0.5 font-mono text-[9px] uppercase font-bold transition-all ${mode === "unique" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-white dark:bg-gray-800 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"}`}
             >Unique</button>
           </div>
         </div>
-        <span className="font-mono text-[9px] border-2 border-black px-1.5 py-0.5 uppercase font-bold inline-block">
+        <span className="font-mono text-[9px] border-2 border-black dark:border-gray-700 px-1.5 py-0.5 uppercase font-bold inline-block">
           {mode === "total" ? "Total Hits" : "Unique Visitors"}
         </span>
       </div>
@@ -125,7 +125,7 @@ function BrutalHeatMap({ data, isLoading }: { data: any[], isLoading: boolean })
           const val = getValue(s);
           const intensity = Math.min(Math.ceil(val / (maxVal / 4)), 4);
           return (
-            <div key={i} title={`${s.date}: ${val} ${mode === "total" ? "views" : "visitors"}`} className={`aspect-square border-2 border-black ${colors[intensity]} hover:-translate-y-0.5 transition-all cursor-crosshair`} />
+            <div key={i} title={`${s.date}: ${val} ${mode === "total" ? "views" : "visitors"}`} className={`aspect-square border-2 border-black dark:border-gray-700 ${colors[intensity]} hover:-translate-y-0.5 transition-all cursor-crosshair`} />
           );
         })}
       </div>
@@ -135,7 +135,7 @@ function BrutalHeatMap({ data, isLoading }: { data: any[], isLoading: boolean })
         <span>Low</span>
         <div className="flex gap-1">
           {[0, 1, 2, 3, 4].map(i => (
-            <div key={i} className={`w-3 h-3 border border-black ${colors[i]}`} />
+            <div key={i} className={`w-3 h-3 border border-black dark:border-gray-700 ${colors[i]}`} />
           ))}
         </div>
         <span>High</span>
@@ -307,7 +307,7 @@ function AdminDashboard() {
         <div className="lg:col-span-2 space-y-8">
           {/* Quick Actions */}
           <div className="bg-brutal-white border-4 border-black dark:border-gray-700 brutal-shadow p-8 text-brutal-black">
-            <h2 className="font-heading text-2xl font-black uppercase mb-6 border-b-4 border-black pb-2">Quick Actions</h2>
+            <h2 className="font-heading text-2xl font-black uppercase mb-6 border-b-4 border-black dark:border-gray-700 pb-2">Quick Actions</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Link to="/admin/projects" className="bg-brutal-lime text-black p-4 border-4 border-black dark:border-gray-700 font-heading font-black text-center uppercase text-sm hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all shadow-[4px_4px_0px_0px_#000] dark:shadow-[4px_4px_0px_0px_#333]">
                 New Project

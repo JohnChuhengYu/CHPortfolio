@@ -5,7 +5,7 @@ import { BrutalBadge } from "@/components/ui/BrutalBadge";
 import { BrutalButton } from "@/components/ui/BrutalButton";
 import { BrutalInput } from "@/components/ui/BrutalInput";
 import { WavyText, PopDot } from "@/components/ui/MotionEffects";
-import { ServerCrash } from "lucide-react";
+import { ServerCrash, CalendarHeart } from "lucide-react";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { gridItemsApi } from "@/api/gridItems";
@@ -113,8 +113,18 @@ export function DailyTimelinePage() {
                 </div>
             )}
             {posts.length === 0 && !isError && (
-                <div className="mb-8 p-8 bg-gray-100 dark:bg-gray-800 flex flex-col items-center justify-center border-4 border-black dark:border-gray-700 border-dashed">
-                    <p className="font-heading text-2xl font-bold text-gray-400">NO DAILY POSTS YET.</p>
+                <div className="p-12 md:p-16 bg-brutal-white border-4 border-black dark:border-gray-700 brutal-shadow flex flex-col items-center justify-center text-center my-8">
+                    <div className="w-16 h-16 bg-brutal-pink border-3 border-black dark:border-gray-700 rounded-full flex items-center justify-center mb-6 brutal-shadow-sm text-black">
+                        <CalendarHeart className="w-8 h-8" />
+                    </div>
+                    <BrutalBadge color="pink" className="mb-4 text-xs font-mono">STATUS: TIMELINE_EMPTY</BrutalBadge>
+                    <h3 className="font-heading text-2xl md:text-3xl font-black mb-3 text-brutal-black">NO DAILY POSTS YET</h3>
+                    <p className="text-brutal-muted max-w-md text-sm md:text-base mb-6">
+                        Check back soon for snippets of daily thoughts, engineering breakthroughs, and adventures!
+                    </p>
+                    <Link to="/projects">
+                        <BrutalButton variant="primary" size="md">Browse Projects</BrutalButton>
+                    </Link>
                 </div>
             )}
 

@@ -25,7 +25,7 @@ export const BrutalAlert = forwardRef<HTMLDivElement, BrutalAlertProps>(
             <div
                 ref={ref}
                 className={cn(
-                    "relative flex items-start gap-4 p-4 border-4 border-black brutal-shadow-sm",
+                    "relative flex items-start gap-4 p-4 border-4 border-black dark:border-gray-700 brutal-shadow-sm",
                     config.bg,
                     className
                 )}
@@ -39,7 +39,7 @@ export const BrutalAlert = forwardRef<HTMLDivElement, BrutalAlertProps>(
                 {onClose && (
                     <button
                         onClick={onClose}
-                        className="p-1 border-2 border-transparent hover:border-black transition-colors"
+                        className="p-1 border-2 border-transparent hover:border-black dark:hover:border-gray-700 transition-colors"
                         aria-label="Close Alert"
                     >
                         <X className="w-5 h-5" strokeWidth={3} />

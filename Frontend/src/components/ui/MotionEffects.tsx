@@ -6,7 +6,7 @@ export const DrawUnderline = ({ className = "" }: { className?: string }) => (
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
         transition={{ duration: 0.6, ease: "circOut", delay: 0.8 }}
-        className={`absolute bottom-1 -left-2 w-[110%] h-4 md:h-6 bg-brutal-yellow -z-0 origin-left -rotate-2 ${className}`}
+        className={`absolute bottom-0 -left-1 w-[105%] h-3 md:h-4 bg-brutal-yellow -z-10 pointer-events-none origin-left -rotate-1 ${className}`}
     />
 );
 

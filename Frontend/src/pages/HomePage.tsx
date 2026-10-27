@@ -207,7 +207,7 @@ export function HomePage() {
                                 <GraduationCap className="w-8 h-8" /> Education
                             </h3>
                             <div className="text-xl leading-relaxed mt-2 min-h-[90px]">
-                                <BlockReveal delay={0.8} boxColor="bg-brutal-yellow">
+                                <BlockReveal delay={0.8} boxColor="bg-brutal-purple">
                                     Master of Information Technology at{" "}
                                     <span className="font-bold underline decoration-4 decoration-black">Monash University</span>.
                                     Passionate about building clean, performant full-stack applications

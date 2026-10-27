@@ -201,7 +201,7 @@ export function DailyDetailPage() {
                 <button
                     onClick={() => updateMutation.mutate(editData)}
                     disabled={updateMutation.isPending}
-                    className="fixed bottom-12 right-12 z-50 bg-brutal-pink border-4 border-black dark:border-gray-700 px-8 py-6 font-heading font-black text-4xl uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-2 hover:translate-y-2 transition-all flex items-center gap-4 text-white cursor-pointer"
+                    className="fixed bottom-12 right-12 z-50 bg-brutal-pink border-4 border-black dark:border-gray-700 px-8 py-6 font-heading font-black text-4xl uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_#333] hover:shadow-none hover:translate-x-2 hover:translate-y-2 transition-all flex items-center gap-4 text-white cursor-pointer"
                 >
                     <Save className="w-10 h-10" />
                     {updateMutation.isPending ? "SAVING..." : "SAVE CHANGES"}

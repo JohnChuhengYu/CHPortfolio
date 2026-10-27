@@ -77,8 +77,8 @@ export function RootLayout() {
         <div className="min-h-screen flex flex-col bg-brutal-bg relative">
             {/* ─── Global Route Loading Bar ─── */}
             <div
-                className={`fixed top - 0 left - 0 h - 1.5 bg - brutal - cyan z - [100] transition - all ease - out shadow - [0_2px_10px_rgba(140, 255, 251, 0.5)] ${isNavigating ? "w-2/3 duration-[3000ms] opacity-100" : "w-full duration-300 opacity-0"
-                    } `}
+                className={`fixed top-0 left-0 h-1.5 bg-brutal-cyan z-[100] transition-all ease-out shadow-[0_2px_10px_rgba(140,255,251,0.5)] ${isNavigating ? "w-2/3 duration-[3000ms] opacity-100" : "w-full duration-300 opacity-0"
+                    }`}
             />
             {/* ─── Floating Navbar ─── */}
             <header className="sticky top-4 md:top-8 z-50 mb-8 md:mb-12 px-4 md:px-8 max-w-7xl mx-auto w-full pointer-events-none">
@@ -109,7 +109,7 @@ export function RootLayout() {
                                                 ? "bg-brutal-yellow text-[#000] border-black brutal-shadow-sm dark:border-gray-700"
                                                 : "text-brutal-black hover:bg-brutal-yellow hover:text-[#000] hover:border-black dark:hover:border-gray-700",
                                         ].filter(Boolean).join(" ")}
-                                        style={{ animationDelay: `${index * 50} ms`, animationFillMode: "both" }}
+                                        style={{ animationDelay: `${index * 50}ms`, animationFillMode: "both" }}
                                     >
                                         {label}
                                     </Link>
@@ -165,8 +165,8 @@ export function RootLayout() {
                             href="https://github.com"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-5 py-2 border-2 border-black dark:border-gray-600 font-heading font-bold text-sm
-                                       hover:bg-brutal-yellow hover:text-black hover:border-black transition-all"
+                            className="px-5 py-2 border-2 border-black dark:border-gray-600 font-heading font-bold text-sm shadow-[2px_2px_0px_0px_#000] dark:shadow-[2px_2px_0px_0px_#333] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none
+                                       hover:bg-brutal-yellow hover:text-black dark:hover:text-black hover:border-black dark:hover:border-gray-500 transition-all"
                         >
                             GitHub
                         </a>
@@ -174,8 +174,8 @@ export function RootLayout() {
                             href="https://linkedin.com"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-5 py-2 border-2 border-black dark:border-gray-600 font-heading font-bold text-sm
-                                       hover:bg-brutal-cyan hover:text-black hover:border-black transition-all"
+                            className="px-5 py-2 border-2 border-black dark:border-gray-600 font-heading font-bold text-sm shadow-[2px_2px_0px_0px_#000] dark:shadow-[2px_2px_0px_0px_#333] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none
+                                       hover:bg-brutal-cyan hover:text-black dark:hover:text-black hover:border-black dark:hover:border-gray-500 transition-all"
                         >
                             LinkedIn
                         </a>
