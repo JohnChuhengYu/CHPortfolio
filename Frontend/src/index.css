@@ -550,39 +550,18 @@ html.dark {
   }
 }
 
-/* --- View Transitions API Dark Mode Reveal --- */
+/* --- View Transitions API Theme Reveal --- */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
 
-/*
-  Z-Index Logic (evaluated AFTER the DOM callback toggles .dark):
-
-  Dark → Light (.dark is REMOVED after callback):
-    old = dark screenshot → must be on TOP (shrinks away)
-    new = light screenshot → on bottom
-
-  Light → Dark (.dark is ADDED after callback):
-    old = light screenshot → on bottom
-    new = dark screenshot → must be on TOP (expands out)
-*/
-
-/* Default (no .dark = Dark → Light transition) */
+/* The incoming theme layer is always elevated on top to cleanly expand outward */
 ::view-transition-old(root) {
-  z-index: 9999;
+  z-index: 1;
 }
 
 ::view-transition-new(root) {
-  z-index: 1;
-}
-
-/* When .dark present (Light → Dark transition) */
-.dark::view-transition-old(root) {
-  z-index: 1;
-}
-
-.dark::view-transition-new(root) {
   z-index: 9999;
 }

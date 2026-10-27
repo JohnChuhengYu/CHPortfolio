@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { flushSync } from "react-dom";
 
 export function useTheme() {
+    const isTransitioningRef = useRef(false);
+
     const [theme, setTheme] = useState<"light" | "dark">(() => {
         if (typeof window !== "undefined") {
             const storedTheme = localStorage.getItem("theme");
@@ -23,55 +25,75 @@ export function useTheme() {
         }
     }, [theme]);
 
-    const toggleTheme = (event: React.MouseEvent) => {
-        // Read current state directly from DOM — single source of truth
+    const toggleTheme = (event?: React.MouseEvent) => {
+        // Prevent rapid mashing or overlapping transitions while an animation is already in progress
+        if (isTransitioningRef.current) return;
+
         const isDark = document.documentElement.classList.contains("dark");
         const nextTheme = isDark ? "light" : "dark";
 
-        // Fallback for browsers that don't support View Transitions API
-        if (!document.startViewTransition) {
-            document.documentElement.classList.toggle("dark", !isDark);
+        // Fallback for browsers that don't support View Transitions or if reduced motion is requested
+        const prefersReducedMotion = typeof window !== "undefined" && 
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (!document.startViewTransition || prefersReducedMotion) {
+            document.documentElement.classList.toggle("dark", nextTheme === "dark");
             localStorage.setItem("theme", nextTheme);
             setTheme(nextTheme);
             return;
         }
 
-        const x = event.clientX;
-        const y = event.clientY;
+        isTransitioningRef.current = true;
+
+        // Calculate click origin with robust fallbacks
+        let x = event?.clientX;
+        let y = event?.clientY;
+
+        if ((x === undefined || y === undefined || (x === 0 && y === 0)) && event?.currentTarget) {
+            const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+            x = rect.left + rect.width / 2;
+            y = rect.top + rect.height / 2;
+        }
+
+        const originX = x ?? window.innerWidth / 2;
+        const originY = y ?? window.innerHeight / 2;
+
         const endRadius = Math.hypot(
-            Math.max(x, innerWidth - x),
-            Math.max(y, innerHeight - y)
+            Math.max(originX, window.innerWidth - originX),
+            Math.max(originY, window.innerHeight - originY)
         );
 
-        // The transition callback does a synchronous DOM class toggle and React state update.
-        // This ensures the new view transition snapshot captures the updated React state (like the new icon).
+        // The transition callback does a synchronous DOM class toggle and React state update
         const transition = document.startViewTransition(() => {
             flushSync(() => {
                 setTheme(nextTheme);
             });
-            document.documentElement.classList.toggle("dark", !isDark);
+            document.documentElement.classList.toggle("dark", nextTheme === "dark");
             localStorage.setItem("theme", nextTheme);
         });
 
         transition.ready.then(() => {
-            const clipPath = [
-                `circle(0px at ${x}px ${y}px)`,
-                `circle(${endRadius}px at ${x}px ${y}px)`,
-            ];
-
+            // In both Light->Dark and Dark->Light, the incoming (new) theme always smoothly expands outward from the button
             document.documentElement.animate(
                 {
-                    clipPath: isDark ? [...clipPath].reverse() : clipPath,
+                    clipPath: [
+                        `circle(0px at ${originX}px ${originY}px)`,
+                        `circle(${endRadius}px at ${originX}px ${originY}px)`,
+                    ],
                 },
                 {
-                    duration: 400,
-                    easing: "ease-in-out",
-                    fill: "forwards",
-                    pseudoElement: isDark
-                        ? "::view-transition-old(root)"
-                        : "::view-transition-new(root)",
+                    duration: 420,
+                    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+                    pseudoElement: "::view-transition-new(root)",
                 }
             );
+        }).catch(() => {
+            // If transition ready is cancelled or errors, release the guard
+            isTransitioningRef.current = false;
+        });
+
+        transition.finished.finally(() => {
+            isTransitioningRef.current = false;
         });
     };
 
