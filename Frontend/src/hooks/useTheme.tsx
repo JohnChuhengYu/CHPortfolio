@@ -73,20 +73,42 @@ export function useTheme() {
         });
 
         transition.ready.then(() => {
-            // In both Light->Dark and Dark->Light, the incoming (new) theme always smoothly expands outward from the button
-            document.documentElement.animate(
-                {
-                    clipPath: [
-                        `circle(0px at ${originX}px ${originY}px)`,
-                        `circle(${endRadius}px at ${originX}px ${originY}px)`,
-                    ],
-                },
-                {
-                    duration: 420,
-                    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
-                    pseudoElement: "::view-transition-new(root)",
-                }
-            );
+            const duration = 700; // Luxurious, smoother pacing as requested
+            const easing = "cubic-bezier(0.25, 1, 0.5, 1)";
+
+            if (isDark) {
+                // 关闭黑夜模式 (Dark → Light): 收回 (Retract) 黑色幕布至按钮圆心
+                document.documentElement.animate(
+                    {
+                        clipPath: [
+                            `circle(${endRadius}px at ${originX}px ${originY}px)`,
+                            `circle(0px at ${originX}px ${originY}px)`,
+                        ],
+                    },
+                    {
+                        duration,
+                        easing,
+                        fill: "forwards",
+                        pseudoElement: "::view-transition-old(root)",
+                    }
+                );
+            } else {
+                // 开启黑夜模式 (Light → Dark): 展开 (Expand) 黑色幕布至全屏
+                document.documentElement.animate(
+                    {
+                        clipPath: [
+                            `circle(0px at ${originX}px ${originY}px)`,
+                            `circle(${endRadius}px at ${originX}px ${originY}px)`,
+                        ],
+                    },
+                    {
+                        duration,
+                        easing,
+                        fill: "forwards",
+                        pseudoElement: "::view-transition-new(root)",
+                    }
+                );
+            }
         }).catch(() => {
             // If transition ready is cancelled or errors, release the guard
             isTransitioningRef.current = false;

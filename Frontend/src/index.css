@@ -550,18 +550,33 @@ html.dark {
   }
 }
 
-/* --- View Transitions API Theme Reveal --- */
+/* --- View Transitions API Theme Reveal & Retract --- */
+::view-transition-group(root) {
+  animation-duration: 0.7s;
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+  height: 100%;
+  overflow: clip;
 }
 
-/* The incoming theme layer is always elevated on top to cleanly expand outward */
+/* Dark → Light: .dark is removed, so the old dark screen is on TOP and retracts into the button */
 ::view-transition-old(root) {
-  z-index: 1;
+  z-index: 9999;
 }
 
 ::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* Light → Dark: .dark is present, so the new dark screen is on TOP and expands from the button */
+.dark::view-transition-old(root) {
+  z-index: 1;
+}
+
+.dark::view-transition-new(root) {
   z-index: 9999;
 }
