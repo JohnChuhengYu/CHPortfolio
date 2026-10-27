@@ -370,6 +370,14 @@ Falls back gracefully to instant toggle on browsers without View Transitions sup
 
 ---
 
+## 👤 Author
+
+**John Chuheng Yu**
+- GitHub: [@JohnChuhengYu](https://github.com/JohnChuhengYu)
+- LinkedIn: [John Chuheng Yu](https://www.linkedin.com/in/chuhengyu)
+
+---
+
 ## 📜 License
 
 This project is for personal portfolio use.

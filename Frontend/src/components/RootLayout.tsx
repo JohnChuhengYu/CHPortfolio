@@ -162,7 +162,7 @@ export function RootLayout() {
                     </p>
                     <div className="flex gap-4">
                         <a
-                            href="https://github.com"
+                            href="https://github.com/JohnChuhengYu"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="px-5 py-2 border-2 border-black dark:border-gray-600 font-heading font-bold text-sm shadow-[2px_2px_0px_0px_#000] dark:shadow-[2px_2px_0px_0px_#333] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none
@@ -171,7 +171,7 @@ export function RootLayout() {
                             GitHub
                         </a>
                         <a
-                            href="https://linkedin.com"
+                            href="https://www.linkedin.com/in/chuhengyu"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="px-5 py-2 border-2 border-black dark:border-gray-600 font-heading font-bold text-sm shadow-[2px_2px_0px_0px_#000] dark:shadow-[2px_2px_0px_0px_#333] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none
