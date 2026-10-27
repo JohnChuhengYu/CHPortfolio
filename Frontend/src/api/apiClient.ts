@@ -1,8 +1,8 @@
 import axios from "axios";
 
-// Creates an axios instance pointing to our local .NET 10 Backend
+// Creates an axios instance pointing to our .NET 10 Backend
 export const apiClient = axios.create({
-    baseURL: "http://localhost:5298",
+    baseURL: import.meta.env.VITE_API_URL || "http://localhost:5298",
     headers: {
         "Content-Type": "application/json",
     },

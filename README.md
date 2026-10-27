@@ -88,7 +88,7 @@ The admin panel is protected behind authentication and provides a full CMS exper
 
 ```
 CHPortfolio/
-├── Backend/                    # ASP.NET Core 10 Web API
+├── Backend/                    # ASP.NET Core 10 Web API (See Backend/README.md)
 │   ├── Controllers/
 │   │   ├── AuthController.cs   # Google OAuth login endpoint
 │   │   └── UploadController.cs # Image upload (single + multiple)
@@ -104,9 +104,10 @@ CHPortfolio/
 │   ├── Migrations/             # EF Core database migrations
 │   ├── Program.cs              # Application entry + Minimal API endpoints
 │   ├── Dockerfile              # Multi-stage Docker build
+│   ├── README.md               # Dedicated Backend API & Database Documentation
 │   └── appsettings.json        # Base configuration
 │
-├── Frontend/                   # React 19 + Vite + TypeScript
+├── Frontend/                   # React 19 + Vite + TypeScript (See Frontend/README.md)
 │   ├── src/
 │   │   ├── api/
 │   │   │   ├── apiClient.ts    # Axios instance with Bearer token interceptor
@@ -152,13 +153,19 @@ CHPortfolio/
 │   │   └── main.tsx            # React entry point
 │   ├── index.html              # HTML shell with font preloading & dark mode script
 │   ├── vite.config.ts
-│   └── package.json
+│   ├── package.json
+│   ├── .env.example            # Frontend environment variable template
+│   └── README.md               # Dedicated Frontend Design System Documentation
 │
 ├── docker-compose.yml          # PostgreSQL + pgAdmin + Backend API
 ├── .env                        # Environment secrets (git-ignored)
 ├── .gitignore
 └── README.md
 ```
+
+> 📖 **Deep Dive Guides**:
+> - [Frontend Documentation (Design System & Primitives)](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/Frontend/README.md)
+> - [Backend Documentation (Architecture & REST API)](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/Backend/README.md)
 
 ---
 
@@ -280,8 +287,11 @@ CHPortfolio/
 5. **Start the frontend** (run separately):
    ```bash
    cd Frontend
-   npm install
-   npm run dev
+   # pnpm is recommended for fast installation and reliable native builds
+   pnpm install
+   pnpm run dev
+   # Or using npm
+   # npm install && npm run dev
    ```
    Frontend will be available at `http://localhost:5173`.
 
@@ -293,6 +303,7 @@ cd Backend
 
 # Update appsettings.Development.json with your local PostgreSQL connection string
 # and Google OAuth credentials (see appsettings.Development.json.example)
+cp appsettings.Development.json.example appsettings.Development.json
 
 dotnet run
 ```
@@ -300,8 +311,8 @@ dotnet run
 #### Frontend
 ```bash
 cd Frontend
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 ---
@@ -343,12 +354,19 @@ Falls back gracefully to instant toggle on browsers without View Transitions sup
 
 ## 📝 Environment Variables
 
+### Root / Backend Environment Variables (`.env`)
 | Variable | Description | Used By |
 |----------|-------------|---------|
 | `GOOGLE_CLIENT_ID` | Google OAuth 2.0 Client ID | `docker-compose.yml` → Backend |
 | `GOOGLE_CLIENT_SECRET` | Google OAuth 2.0 Client Secret | `docker-compose.yml` → Backend |
 
-> **Note**: The `.env` file is git-ignored. Copy from the template and fill in your own values. A reference template is available at `Backend/appsettings.Development.json.example`.
+### Frontend Environment Variables (`Frontend/.env.local`)
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `VITE_GOOGLE_CLIENT_ID` | Google OAuth 2.0 Web Client ID | — |
+| `VITE_API_URL` | Backend REST API Base URL | `http://localhost:5298` |
+
+> **Note**: Both `.env` and `.env.local` files are git-ignored. Reference templates are provided in `Backend/appsettings.Development.json.example` and `Frontend/.env.example`.
 
 ---
 
