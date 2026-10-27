@@ -38,10 +38,10 @@ services:
       - Authentication__Google__ClientId=${GOOGLE_CLIENT_ID}
       - Authentication__Google__ClientSecret=${GOOGLE_CLIENT_SECRET}
     volumes:
-      - uploads_data:/app/wwwroot/uploads
+      - ./Backend/wwwroot/uploads:/app/wwwroot/uploads
     depends_on:
       - db
 
 volumes:
   pgdata:
-  uploads_data:
+

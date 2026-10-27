@@ -78,3 +78,9 @@ docker-compose.override.yml
 # macOS Documents
 # ========================
 *.pages
+
+# ========================
+# Uploads
+# ========================
+Backend/wwwroot/uploads/*
+!Backend/wwwroot/uploads/.gitkeep
