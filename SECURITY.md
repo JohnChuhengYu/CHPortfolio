@@ -47,3 +47,4 @@ If you discover a security vulnerability in **CHPortfolio**, please report it re
 - File uploads are strictly restricted to image MIME types (`image/jpeg`, `image/png`, `image/gif`, `image/webp`).
 - Unique GUID filenames are generated upon upload to prevent directory traversal and arbitrary file overwrite attacks.
 - Maximum payload sizes are enforced at both reverse proxy (25MB) and application levels.
+
