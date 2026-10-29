@@ -130,7 +130,12 @@ export function DailyTimelinePage() {
 
             {/* Post Form (admin only) */}
             {isAdmin && (
-                <BrutalCard color="yellow" className="mb-10">
+                <BrutalCard color="white" className="mb-10 border-2 border-brutal-border shadow-[4px_4px_0px_0px_#000] dark:shadow-[4px_4px_0px_0px_#333] relative">
+                    <div className="flex items-center gap-2 mb-2">
+                        <span className="px-3 py-1 bg-brutal-yellow text-black font-heading font-black text-xs uppercase border-2 border-brutal-border shadow-[2px_2px_0px_0px_#000] dark:shadow-[2px_2px_0px_0px_#333]">
+                            NEW DAILY POST
+                        </span>
+                    </div>
                     <form
                         action={handlePost}
                         className="flex flex-col gap-4"

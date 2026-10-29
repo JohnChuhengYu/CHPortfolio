@@ -132,16 +132,32 @@ export function RootLayout() {
                         {isLoggedIn && isAdmin && (
                             <button
                                 onClick={toggleAdminMode}
-                                className={`flex-shrink-0 flex items-center gap-2 px-3 sm:px-4 py-2 border-2 border-black dark:border-gray-700 font-heading font-black text-xs sm:text-sm uppercase transition-all shadow-[4px_4px_0px_0px_#000] dark:shadow-[4px_4px_0px_0px_#333] hover:translate-x-1 hover:translate-y-1 hover:shadow-none ${isAdminModeEnbaled ? "bg-brutal-pink text-white" : "bg-brutal-white text-brutal-black"
-                                    }`}
+                                className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 border-2 border-brutal-border font-heading font-black text-xs uppercase transition-all shadow-[2px_2px_0px_0px_#000] dark:shadow-[2px_2px_0px_0px_#333] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none cursor-pointer ${
+                                    isAdminModeEnbaled ? "bg-brutal-pink text-white" : "bg-brutal-white text-brutal-black hover:bg-brutal-bg"
+                                }`}
+                                title="Toggle live in-place editing on detail pages"
                             >
-                                <Zap className="w-4 h-4" />
+                                <Zap className={`w-3.5 h-3.5 ${isAdminModeEnbaled ? "fill-white text-white" : ""}`} />
                                 <span className="hidden sm:inline">{isAdminModeEnbaled ? "GOD MODE ON" : "GOD MODE OFF"}</span>
-                                <span className="sm:hidden">{isAdminModeEnbaled ? "ON" : "OFF"}</span>
+                                <span className="sm:hidden">{isAdminModeEnbaled ? "GOD ON" : "GOD OFF"}</span>
                             </button>
                         )}
                     </div>
                 </div>
+
+                {/* God Mode Active Global Ribbon */}
+                {isLoggedIn && isAdmin && isAdminModeEnbaled && (
+                    <div className="bg-brutal-pink text-white border-t-2 border-brutal-border px-4 py-1 text-center font-mono text-xs font-bold flex items-center justify-center gap-2">
+                        <Zap className="w-3.5 h-3.5 fill-white" />
+                        <span>GOD MODE ACTIVE: In-place live editing enabled</span>
+                        <button
+                            onClick={toggleAdminMode}
+                            className="underline hover:text-black ml-2 cursor-pointer font-heading uppercase text-[11px]"
+                        >
+                            Turn Off
+                        </button>
+                    </div>
+                )}
             </header>
 
             {/* ─── Main Content ─── */}

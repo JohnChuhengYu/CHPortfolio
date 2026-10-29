@@ -79,25 +79,27 @@ export function CommentSection({ gridItemId }: CommentSectionProps) {
             {/* Comment List */}
             <div className="flex flex-col gap-6 mb-8">
                 {isLoading ? (
-                    <div className="font-mono text-gray-500 font-bold uppercase">Loading Comments...</div>
+                    <div className="font-mono text-brutal-muted font-bold uppercase">Loading Comments...</div>
                 ) : comments && comments.length > 0 ? (
                     comments.map((comment) => (
                         <div
                             key={comment.id}
-                            className={`p-4 border-4 border-black dark:border-gray-700 relative group transition-all text-brutal-black ${user?.email === comment.userName ? 'bg-brutal-yellow/20 border-brutal-yellow' : 'bg-brutal-bg'}`}
+                            className={`p-4 border-2 border-brutal-border shadow-[3px_3px_0px_0px_#000] dark:shadow-[3px_3px_0px_0px_#333] relative group transition-all text-brutal-black ${user?.email === comment.userName ? 'bg-brutal-yellow/15 border-brutal-yellow' : 'bg-brutal-white'}`}
                         >
                             <div className="flex justify-between items-start mb-2">
-                                <div className="font-heading font-bold text-lg">
-                                    {comment.userName.split('@')[0]}
+                                <div className="font-heading font-bold text-base flex items-center gap-2">
+                                    <span>{comment.userName.split('@')[0]}</span>
                                     {isAdminModeEnbaled && (comment.userName === 'admin@chportfolio.dev' || comment.userName === 'ych0911y@gmail.com') && (
-                                        <span className="ml-2 text-xs bg-black text-white px-2 py-1 uppercase border border-black dark:border-gray-600">Admin</span>
+                                        <span className="text-[10px] font-heading font-black bg-brutal-yellow text-black px-2 py-0.5 uppercase border border-brutal-border">
+                                            Admin
+                                        </span>
                                     )}
                                 </div>
-                                <div className="font-mono text-xs text-gray-500 bg-brutal-white border-2 border-black dark:border-gray-700 px-2 py-1">
+                                <div className="font-mono text-xs text-brutal-muted bg-brutal-bg border border-brutal-border px-2 py-0.5">
                                     {formatDate(comment.createdAt)}
                                 </div>
                             </div>
-                            <p className="font-mono whitespace-pre-wrap text-brutal-black">{comment.content}</p>
+                            <p className="font-mono text-sm whitespace-pre-wrap text-brutal-black">{comment.content}</p>
 
                             {/* Delete Button (Visible if user owns it or is admin) */}
                             {(user?.email === comment.userName || isAdminModeEnbaled) && (
@@ -108,34 +110,34 @@ export function CommentSection({ gridItemId }: CommentSectionProps) {
                                         }
                                     }}
                                     disabled={deleteMutation.isPending}
-                                    className={`absolute -top-3 -right-3 bg-brutal-red text-white p-2 border-2 border-black dark:border-gray-700 transition-all hover:scale-110 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_#333] disabled:opacity-50 ${isAdminModeEnbaled ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
+                                    className={`absolute -top-3 -right-3 bg-brutal-red text-white p-1.5 border-2 border-brutal-border transition-all hover:scale-110 shadow-[2px_2px_0px_0px_#000] dark:shadow-[2px_2px_0px_0px_#333] disabled:opacity-50 cursor-pointer ${isAdminModeEnbaled ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
                                     title="Delete Comment"
                                 >
-                                    <Trash2 className="w-4 h-4" />
+                                    <Trash2 className="w-3.5 h-3.5" />
                                 </button>
                             )}
                         </div>
                     ))
                 ) : (
-                    <div className="font-mono text-gray-400 italic font-bold">No comments yet. Be the first to start the discussion!</div>
+                    <div className="font-mono text-brutal-muted italic font-bold">No comments yet. Be the first to start the discussion!</div>
                 )}
             </div>
 
             {/* Post Comment Input */}
-            <div className="border-t-4 border-black dark:border-gray-700 pt-8">
+            <div className="border-t-2 border-brutal-border pt-8">
                 {isLoggedIn ? (
                     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                         <textarea
                             value={newComment}
                             onChange={(e) => setNewComment(e.target.value)}
                             placeholder="Write your comment here..."
-                            className="w-full min-h-[120px] p-4 font-mono border-4 border-black dark:border-gray-700 bg-brutal-white text-brutal-black outline-none focus:bg-brutal-cyan/10 transition-colors resize-y"
+                            className="w-full min-h-[120px] p-4 font-mono text-sm sm:text-base border-2 border-brutal-border bg-brutal-white text-brutal-black outline-none focus:ring-2 focus:ring-brutal-yellow transition-all shadow-[2px_2px_0px_0px_#000] dark:shadow-[2px_2px_0px_0px_#333] resize-y"
                             disabled={createMutation.isPending}
                         />
                         <button
                             type="submit"
                             disabled={!newComment.trim() || createMutation.isPending}
-                            className="self-end bg-black text-white px-8 py-3 font-heading font-black uppercase flex items-center gap-2 border-4 border-black dark:border-gray-700 hover:bg-brutal-cyan hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_#333] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
+                            className="self-end bg-brutal-black text-brutal-bg px-6 py-2.5 font-heading font-black text-sm uppercase flex items-center gap-2 border-2 border-brutal-border hover:bg-brutal-cyan hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-[3px_3px_0px_0px_#000] dark:shadow-[3px_3px_0px_0px_#333] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 cursor-pointer"
                         >
                             {createMutation.isPending ? "Posting..." : (
                                 <>
