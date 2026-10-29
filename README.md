@@ -12,8 +12,8 @@
   <img src="https://img.shields.io/badge/PostgreSQL-17-4169E1?style=flat-square&logo=postgresql&logoColor=white" />
   <img src="https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker&logoColor=white" />
   <img src="https://img.shields.io/badge/TailwindCSS-v4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" />
-  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="MIT License" /></a>
-  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square" alt="PRs Welcome" />
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-All_Rights_Reserved-red?style=flat-square" alt="All Rights Reserved" /></a>
+  <img src="https://img.shields.io/badge/Status-Personal_Portfolio-blue?style=flat-square" alt="Personal Portfolio" />
 </p>
 
 ---
@@ -165,7 +165,7 @@ CHPortfolio/
 ├── .gitignore
 ├── CONTRIBUTING.md             # Contribution guidelines & coding conventions
 ├── DEPLOYMENT.md               # Production deployment guide (VPS, Nginx, Caddy, SSL)
-├── LICENSE                     # MIT Open-Source License
+├── LICENSE                     # Personal Portfolio License (All Rights Reserved)
 ├── SECURITY.md                 # Security policy & vulnerability reporting
 └── README.md
 ```
@@ -177,9 +177,9 @@ CHPortfolio/
 | **[Backend Architecture & REST API](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/Backend/README.md)** | ASP.NET Core 10 Minimal APIs, Controllers, PostgreSQL 17 schema, Identity RBAC |
 | **[Frontend Design System & Components](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/Frontend/README.md)** | Neo-Brutalism tokens, Tailwind v4 theme, View Transitions API, UI Primitives |
 | **[Production Deployment Guide](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/DEPLOYMENT.md)** | Production VPS setup, Docker Compose, Nginx/Caddy reverse proxy, Certbot SSL, backups |
-| **[Contributing Guidelines](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/CONTRIBUTING.md)** | Development workflow, coding standards, branch conventions, PR checklist |
+| **[Contributing Guidelines](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/CONTRIBUTING.md)** | Code review guidelines, local setup, coding standards, branch conventions |
 | **[Security Policy](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/SECURITY.md)** | Responsible vulnerability disclosure, OAuth cryptographic verification, RBAC |
-| **[MIT License](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/LICENSE)** | Open-source terms and permissions |
+| **[License](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/LICENSE)** | All Rights Reserved (Personal Portfolio & Educational Showcase) |
 
 ---
 
@@ -394,14 +394,15 @@ Falls back gracefully to instant toggle on browsers without View Transitions sup
 
 ## 📜 License
 
-This project is open-source and released under the [MIT License](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/LICENSE).
+Copyright (c) 2026 John Chuheng Yu. **All Rights Reserved**.
 
-```text
-MIT License
-Copyright (c) 2026 John Chuheng Yu
-```
+This repository is publicly visible on GitHub strictly for **portfolio showcase, code review, and educational reference**.
 
-You are free to use, modify, adapt, and distribute this codebase for personal, educational, or commercial projects provided that the original copyright notice and permission notice are included. See the [`LICENSE`](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/LICENSE) file for complete terms.
+- ❌ **Commercial use, unauthorized re-hosting, template selling, and redistribution are strictly prohibited.**
+- ❌ **Personal branding, custom illustrations, photography, devlogs, and identity assets are proprietary.**
+- ✅ **Browsing, code inspection, and running locally for non-commercial educational review are permitted.**
+
+For detailed terms, please refer to the [`LICENSE`](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/LICENSE) file.
 
 ---
 

@@ -1,8 +1,10 @@
 # Contributing to CHPortfolio
 
-Thank you for your interest in contributing to **CHPortfolio**! Whether you are reporting a bug, proposing a new feature, improving documentation, or submitting a code change, your involvement is welcome.
+Thank you for your interest in **CHPortfolio**!
 
-This document outlines the recommended workflow and conventions to help you get started quickly.
+> 💡 **Project Context**: This repository is John Chuheng Yu's **personal developer portfolio and content management system**. It is published publicly on GitHub for portfolio showcase, code review, and educational inspection. While it is not an open-source library or multi-user framework, feedback, bug reports, and discussion on modern web engineering practices are warmly welcomed!
+
+This document outlines the recommended workflow and conventions to help you navigate and explore the codebase quickly.
 
 ---
 
@@ -191,3 +193,4 @@ Before opening your pull request, please make sure you have:
 - [ ] Linked any related GitHub issues in your PR description.
 
 Thank you for helping make **CHPortfolio** even better! 🚀
+
