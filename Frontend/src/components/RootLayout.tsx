@@ -162,7 +162,7 @@ export function RootLayout() {
 
             {/* ─── Main Content ─── */}
             <main className="flex-1 flex flex-col items-center w-full">
-                <div className={`${pathname === "/devlog" ? "w-full" : "max-w-7xl w-full"} mx-auto pb-16`}>
+                <div className={`${pathname === "/devlog" || pathname === "/" ? "w-full" : "max-w-7xl w-full"} mx-auto pb-16`}>
                     <Outlet />
                 </div>
             </main>
