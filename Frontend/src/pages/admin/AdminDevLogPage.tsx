@@ -138,30 +138,36 @@ const solution = "elegant";
                         </div>
 
                         {/* Dual-Pane Editor */}
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border-3 border-brutal-border brutal-shadow">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border-2 border-brutal-border shadow-[4px_4px_0px_0px_var(--theme-border)]">
                             {/* Editor Pane */}
                             <div className="flex flex-col">
-                                <div className="bg-brutal-black text-brutal-bg px-4 py-2 font-heading font-bold text-sm flex items-center gap-2">
-                                    <BrutalBadge color="yellow" className="text-black">EDIT</BrutalBadge>
-                                    <span>Markdown</span>
+                                <div className="bg-brutal-bg border-b-2 border-brutal-border text-brutal-black px-4 py-2.5 font-heading font-bold text-sm flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                        <BrutalBadge color="yellow" className="text-black text-xs py-0.5 px-2">EDIT</BrutalBadge>
+                                        <span>Markdown Source</span>
+                                    </div>
+                                    <span className="font-mono text-[10px] text-brutal-muted">Auto-saves in memory</span>
                                 </div>
                                 <textarea
                                     value={markdown}
                                     onChange={(e) => setMarkdown(e.target.value)}
                                     className="flex-1 min-h-[500px] p-4 font-mono text-sm bg-brutal-white text-brutal-black
-                                               border-b-3 lg:border-b-0 lg:border-r-3 border-brutal-border resize-none
-                                               focus:outline-none focus:bg-brutal-bg transition-colors"
+                                               border-b-2 lg:border-b-0 lg:border-r-2 border-brutal-border resize-none
+                                               focus:outline-none focus:bg-brutal-bg/30 transition-colors"
                                     spellCheck={false}
                                 />
                             </div>
 
                             {/* Preview Pane */}
                             <div className="flex flex-col">
-                                <div className="bg-brutal-black text-brutal-bg px-4 py-2 font-heading font-bold text-sm flex items-center gap-2">
-                                    <BrutalBadge color="cyan" className="text-black">PREVIEW</BrutalBadge>
-                                    <span>Output</span>
+                                <div className="bg-brutal-bg border-b-2 border-brutal-border text-brutal-black px-4 py-2.5 font-heading font-bold text-sm flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                        <BrutalBadge color="cyan" className="text-black text-xs py-0.5 px-2">PREVIEW</BrutalBadge>
+                                        <span>Rendered HTML</span>
+                                    </div>
+                                    <span className="font-mono text-[10px] text-brutal-muted">Live sync</span>
                                 </div>
-                                <div className="flex-1 min-h-[500px] p-6 bg-brutal-white text-brutal-black overflow-auto brutal-prose font-mono text-lg max-w-none">
+                                <div className="flex-1 min-h-[500px] p-6 bg-brutal-white text-brutal-black overflow-auto brutal-prose font-mono text-base max-w-none">
                                     <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
                                         {markdown || '*Start typing markdown in the editor...*'}
                                     </ReactMarkdown>
@@ -187,22 +193,25 @@ const solution = "elegant";
 
                 {/* Existing DevLogs Sidebar */}
                 <div className="xl:col-span-1">
-                    <BrutalCard color="yellow" className="h-[400px] xl:h-[calc(100vh-200px)] flex flex-col xl:sticky xl:top-6">
-                        <h2 className="font-heading text-lg font-bold mb-4 shrink-0">Existing DevLogs</h2>
+                    <BrutalCard color="white" className="h-[400px] xl:h-[calc(100vh-200px)] flex flex-col xl:sticky xl:top-6">
+                        <div className="flex items-center justify-between mb-4 border-b-2 border-brutal-border pb-3 shrink-0">
+                            <h2 className="font-heading text-lg font-bold">Existing DevLogs</h2>
+                            <BrutalBadge color="purple" className="text-xs py-0.5 px-2">{existingDevLogs.length}</BrutalBadge>
+                        </div>
                         <ul className="flex flex-col gap-3 overflow-y-auto pr-2 pb-4 flex-1">
                             {isLoading ? (
-                                <li className="p-3">Loading DevLogs...</li>
+                                <li className="p-4 text-center font-mono text-xs text-brutal-muted">Loading DevLogs...</li>
                             ) : existingDevLogs.length === 0 ? (
-                                <li className="p-3 text-gray-500">No DevLogs published yet.</li>
+                                <li className="p-4 text-center font-mono text-xs text-brutal-muted">No DevLogs published yet.</li>
                             ) : (
                                 existingDevLogs.map((p: any) => (
-                                    <li key={p.id} className="relative flex flex-col gap-2 bg-brutal-white border-2 border-brutal-border p-4 group">
+                                    <li key={p.id} className="relative flex flex-col gap-2 bg-brutal-bg border-2 border-brutal-border p-4 hover:border-brutal-purple transition-all group">
                                         <div className="flex flex-col items-start gap-2 pr-8">
-                                            <span className="font-heading font-semibold text-sm break-words dark:text-white">{p.title}</span>
+                                            <span className="font-heading font-bold text-sm break-words text-brutal-black">{p.title}</span>
                                             {p.tags && p.tags.length > 0 && (
                                                 <div className="flex flex-wrap gap-1">
                                                     {p.tags.map((tag: string) => (
-                                                        <BrutalBadge key={tag} color="cyan" className="text-[10px] py-0">{tag}</BrutalBadge>
+                                                        <BrutalBadge key={tag} color="cyan" className="text-[10px] py-0 px-1.5">{tag}</BrutalBadge>
                                                     ))}
                                                 </div>
                                             )}
@@ -210,10 +219,10 @@ const solution = "elegant";
                                         <button
                                             type="button"
                                             onClick={() => triggerDelete(p.id)}
-                                            className="absolute top-2 right-2 bg-brutal-red text-white border-2 border-black dark:border-gray-700 brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all p-1"
+                                            className="absolute top-2 right-2 bg-brutal-red text-white border-2 border-brutal-border shadow-[2px_2px_0px_0px_var(--theme-border)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all p-1.5 cursor-pointer"
                                             title="Delete DevLog"
                                         >
-                                            <X className="w-4 h-4" strokeWidth={3} />
+                                            <X className="w-3.5 h-3.5" strokeWidth={3} />
                                         </button>
                                     </li>
                                 ))

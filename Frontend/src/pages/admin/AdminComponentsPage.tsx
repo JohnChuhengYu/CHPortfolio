@@ -53,8 +53,8 @@ export function AdminComponentsPage() {
                 </BrutalCard>
 
                 {/* ─── Inputs ─── */}
-                <BrutalCard color="yellow">
-                    <h2 className="font-heading text-2xl font-bold mb-6 border-b-4 border-brutal-border pb-2">Inputs (`BrutalInput`)</h2>
+                <BrutalCard color="white">
+                    <h2 className="font-heading text-2xl font-bold mb-6 border-b-2 border-brutal-border pb-2">Inputs (`BrutalInput`)</h2>
                     <div className="flex flex-col gap-4">
                         <BrutalInput
                             name="demo-text"
@@ -77,8 +77,8 @@ export function AdminComponentsPage() {
                 </BrutalCard>
 
                 {/* ─── Badges ─── */}
-                <BrutalCard color="cyan">
-                    <h2 className="font-heading text-2xl font-bold mb-6 border-b-4 border-brutal-border pb-2">Badges (`BrutalBadge`)</h2>
+                <BrutalCard color="white">
+                    <h2 className="font-heading text-2xl font-bold mb-6 border-b-2 border-brutal-border pb-2">Badges (`BrutalBadge`)</h2>
                     <div className="flex flex-wrap gap-3 items-center">
                         <BrutalBadge color="yellow">Yellow</BrutalBadge>
                         <BrutalBadge color="cyan">Cyan</BrutalBadge>

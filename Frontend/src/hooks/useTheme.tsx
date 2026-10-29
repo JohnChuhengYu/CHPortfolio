@@ -1,14 +1,20 @@
-import { useState, useEffect, useRef } from "react";
-import { flushSync } from "react-dom";
+import React, { createContext, useContext, useState, useEffect, useRef, type ReactNode } from "react";
 
-export function useTheme() {
+interface ThemeContextType {
+    theme: "light" | "dark";
+    toggleTheme: (event?: React.MouseEvent) => void;
+}
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+export function ThemeProvider({ children }: { children: ReactNode }) {
     const isTransitioningRef = useRef(false);
 
     const [theme, setTheme] = useState<"light" | "dark">(() => {
         if (typeof window !== "undefined") {
             const storedTheme = localStorage.getItem("theme");
-            if (storedTheme) {
-                return storedTheme as "light" | "dark";
+            if (storedTheme === "light" || storedTheme === "dark") {
+                return storedTheme;
             }
             if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
                 return "dark";
@@ -30,16 +36,20 @@ export function useTheme() {
         if (isTransitioningRef.current) return;
 
         const isDark = document.documentElement.classList.contains("dark");
-        const nextTheme = isDark ? "light" : "dark";
+        const nextTheme: "light" | "dark" = isDark ? "light" : "dark";
 
         // Fallback for browsers that don't support View Transitions or if reduced motion is requested
         const prefersReducedMotion = typeof window !== "undefined" && 
             window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        if (!document.startViewTransition || prefersReducedMotion) {
+        const applyThemeChange = () => {
             document.documentElement.classList.toggle("dark", nextTheme === "dark");
             localStorage.setItem("theme", nextTheme);
             setTheme(nextTheme);
+        };
+
+        if (typeof document === "undefined" || !document.startViewTransition || prefersReducedMotion) {
+            applyThemeChange();
             return;
         }
 
@@ -63,61 +73,70 @@ export function useTheme() {
             Math.max(originY, window.innerHeight - originY)
         );
 
-        // The transition callback does a synchronous DOM class toggle and React state update
-        const transition = document.startViewTransition(() => {
-            flushSync(() => {
-                setTheme(nextTheme);
+        let transition: any;
+        try {
+            transition = document.startViewTransition(() => {
+                applyThemeChange();
             });
-            document.documentElement.classList.toggle("dark", nextTheme === "dark");
-            localStorage.setItem("theme", nextTheme);
-        });
+        } catch {
+            applyThemeChange();
+            isTransitioningRef.current = false;
+            return;
+        }
+
+        // Safety unlock in case animation is aborted or backgrounded
+        const safetyTimer = setTimeout(() => {
+            isTransitioningRef.current = false;
+        }, 1000);
 
         transition.ready.then(() => {
-            const duration = 700; // Luxurious, smoother pacing as requested
+            const duration = 600; // Pacing for smooth transition
             const easing = "cubic-bezier(0.25, 1, 0.5, 1)";
 
-            if (isDark) {
-                // 关闭黑夜模式 (Dark → Light): 收回 (Retract) 黑色幕布至按钮圆心
-                document.documentElement.animate(
-                    {
-                        clipPath: [
+            const animation = document.documentElement.animate(
+                {
+                    clipPath: isDark
+                        ? [
                             `circle(${endRadius}px at ${originX}px ${originY}px)`,
                             `circle(0px at ${originX}px ${originY}px)`,
-                        ],
-                    },
-                    {
-                        duration,
-                        easing,
-                        fill: "forwards",
-                        pseudoElement: "::view-transition-old(root)",
-                    }
-                );
-            } else {
-                // 开启黑夜模式 (Light → Dark): 展开 (Expand) 黑色幕布至全屏
-                document.documentElement.animate(
-                    {
-                        clipPath: [
+                          ]
+                        : [
                             `circle(0px at ${originX}px ${originY}px)`,
                             `circle(${endRadius}px at ${originX}px ${originY}px)`,
-                        ],
-                    },
-                    {
-                        duration,
-                        easing,
-                        fill: "forwards",
-                        pseudoElement: "::view-transition-new(root)",
-                    }
-                );
-            }
-        }).catch(() => {
-            // If transition ready is cancelled or errors, release the guard
-            isTransitioningRef.current = false;
-        });
-
-        transition.finished.finally(() => {
+                          ],
+                },
+                {
+                    duration,
+                    easing,
+                    fill: "forwards",
+                    pseudoElement: isDark ? "::view-transition-old(root)" : "::view-transition-new(root)",
+                }
+            );
+            return animation.finished;
+        }).catch((err: any) => {
+            console.error("View transition error:", err);
+        }).finally(() => {
+            clearTimeout(safetyTimer);
             isTransitioningRef.current = false;
         });
     };
 
-    return { theme, toggleTheme };
+    return (
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+            {children}
+        </ThemeContext.Provider>
+    );
+}
+
+export function useTheme() {
+    const context = useContext(ThemeContext);
+    if (!context) {
+        // Fallback for isolated usage outside provider
+        const isDark = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
+        return {
+            theme: isDark ? "dark" as const : "light" as const,
+            toggleTheme: () => {}
+        };
+    }
+    return context;
 }

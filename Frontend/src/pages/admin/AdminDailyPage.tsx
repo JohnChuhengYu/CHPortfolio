@@ -137,22 +137,25 @@ export function AdminDailyPage() {
                 </BrutalCard>
 
                 {/* Existing Dailies */}
-                <BrutalCard color="yellow">
-                    <h2 className="font-heading text-lg font-bold mb-4">Existing Dailies</h2>
+                <BrutalCard color="white">
+                    <div className="flex items-center justify-between mb-4 border-b-2 border-brutal-border pb-3">
+                        <h2 className="font-heading text-lg font-bold">Existing Dailies</h2>
+                        <BrutalBadge color="cyan" className="text-xs py-0.5 px-2">{existingDailies.length}</BrutalBadge>
+                    </div>
                     <ul className="flex flex-col gap-3">
                         {isLoading ? (
-                            <li className="p-3">Loading dailies...</li>
+                            <li className="p-4 text-center font-mono text-xs text-brutal-muted">Loading dailies...</li>
                         ) : existingDailies.length === 0 ? (
-                            <li className="p-3 text-gray-500">No dailies posted yet.</li>
+                            <li className="p-4 text-center font-mono text-xs text-brutal-muted">No dailies posted yet.</li>
                         ) : (
                             existingDailies.map((p: any) => (
-                                <li key={p.id} className="relative flex flex-col gap-2 bg-brutal-white border-2 border-brutal-border p-4 group">
+                                <li key={p.id} className="relative flex flex-col gap-2 bg-brutal-bg border-2 border-brutal-border p-4 hover:border-brutal-cyan transition-all group">
                                     <div className="flex flex-col items-start gap-2 pr-8 w-full">
-                                        <span className="font-heading font-semibold text-sm break-words dark:text-white">{p.title || "Daily Note"}</span>
+                                        <span className="font-heading font-bold text-sm break-words text-brutal-black">{p.title || "Daily Note"}</span>
                                         {p.subTitle && (
                                             <div className="flex flex-wrap gap-1">
                                                 {p.subTitle.split(",").filter((m: string) => m.trim().length > 0).map((m: string, i: number) => (
-                                                    <BrutalBadge key={i} color="cyan" className="text-[10px] py-0">{m.trim()}</BrutalBadge>
+                                                    <BrutalBadge key={i} color="cyan" className="text-[10px] py-0 px-1.5">{m.trim()}</BrutalBadge>
                                                 ))}
                                             </div>
                                         )}
@@ -160,10 +163,10 @@ export function AdminDailyPage() {
                                     <button
                                         type="button"
                                         onClick={() => triggerDelete(p.id)}
-                                        className="absolute top-2 right-2 bg-brutal-red text-white border-2 border-brutal-border brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all p-1"
+                                        className="absolute top-2 right-2 bg-brutal-red text-white border-2 border-brutal-border shadow-[2px_2px_0px_0px_var(--theme-border)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all p-1.5 cursor-pointer"
                                         title="Delete Daily"
                                     >
-                                        <X className="w-4 h-4" strokeWidth={3} />
+                                        <X className="w-3.5 h-3.5" strokeWidth={3} />
                                     </button>
                                 </li>
                             ))

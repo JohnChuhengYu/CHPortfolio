@@ -9,12 +9,10 @@ interface ProtectedRouteProps {
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
     const { isLoggedIn, user } = useAuth();
 
-    if (!isLoggedIn) {
-        return <Navigate to="/login" replace />;
-    }
+    const isAdmin = user?.email === "ych0911y@gmail.com" || user?.email === "admin@chportfolio.dev";
 
-    if (user?.email !== "ych0911y@gmail.com" && user?.email !== "admin@chportfolio.dev") {
-        return <Navigate to="/" replace />;
+    if (!isLoggedIn || !isAdmin) {
+        return <Navigate to="/login" replace />;
     }
 
     return <>{children}</>;

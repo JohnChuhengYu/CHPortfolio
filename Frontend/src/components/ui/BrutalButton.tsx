@@ -1,6 +1,6 @@
 import { type ButtonHTMLAttributes, forwardRef } from "react";
 
-type BrutalButtonVariant = "primary" | "secondary" | "danger" | "ghost" | "cyan" | "black";
+type BrutalButtonVariant = "primary" | "secondary" | "danger" | "ghost" | "cyan" | "black" | "white";
 type BrutalButtonSize = "sm" | "md" | "lg";
 
 interface BrutalButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -15,6 +15,7 @@ const variantStyles: Record<BrutalButtonVariant, string> = {
     cyan: "bg-brutal-cyan text-black hover:brightness-105",
     ghost: "bg-transparent text-current hover:bg-black/10 dark:hover:bg-white/10",
     black: "bg-black text-white hover:bg-gray-900 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:border-gray-600",
+    white: "bg-brutal-white text-brutal-black hover:bg-brutal-bg",
 };
 
 const sizeStyles: Record<BrutalButtonSize, string> = {

@@ -34,10 +34,10 @@ export function AdminLayout() {
                 fixed md:static inset-y-0 left-0 z-50 transform 
                 ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} 
                 md:translate-x-0 transition-transform duration-300 ease-in-out
-                w-64 bg-brutal-white border-r-4 border-brutal-border flex flex-col shrink-0
+                w-64 bg-brutal-white border-r-2 border-brutal-border flex flex-col shrink-0
             `}>
                 {/* Sidebar Header */}
-                <div className="p-6 border-b-3 border-brutal-border flex justify-between items-center">
+                <div className="p-6 border-b-2 border-brutal-border flex justify-between items-center">
                     <Link to="/" className="font-heading font-bold text-xl text-brutal-black">
                         CH<span className="text-brutal-yellow">.</span> Admin
                     </Link>
@@ -59,13 +59,13 @@ export function AdminLayout() {
                                 to={to}
                                 onClick={() => setIsMobileMenuOpen(false)}
                                 className={[
-                                    "px-4 py-3 font-heading font-semibold text-sm transition-all duration-150 flex items-center gap-3",
+                                    "px-4 py-3 font-heading font-bold text-sm transition-all duration-150 flex items-center gap-3",
                                     isActive
-                                        ? "bg-brutal-yellow text-black border-2 border-brutal-border brutal-shadow-sm"
-                                        : "text-brutal-black hover:bg-brutal-yellow hover:text-black hover:border-brutal-border hover:brutal-shadow-sm border-2 border-transparent",
+                                        ? "bg-brutal-yellow text-black border-2 border-brutal-border shadow-[2px_2px_0px_0px_var(--theme-border)]"
+                                        : "text-brutal-black hover:bg-brutal-bg hover:border-brutal-border border-2 border-transparent transition-colors",
                                 ].join(" ")}
                             >
-                                <Icon className="w-5 h-5" />
+                                <Icon className="w-5 h-5 shrink-0" />
                                 {label}
                             </Link>
                         );
@@ -83,8 +83,8 @@ export function AdminLayout() {
                             window.location.href = "/";
                         }}
                         className="w-full px-4 py-2 font-heading font-bold text-sm
-                                   bg-brutal-red text-brutal-white border-2 border-brutal-border
-                                   brutal-shadow-sm brutal-interactive"
+                                   bg-brutal-red text-white border-2 border-brutal-border
+                                   shadow-[2px_2px_0px_0px_var(--theme-border)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all"
                     >
                         Logout
                     </button>
@@ -94,10 +94,10 @@ export function AdminLayout() {
             {/* ─── Content Area ─── */}
             <div className="flex-1 flex flex-col overflow-hidden w-full">
                 {/* Top Bar */}
-                <header className="h-16 border-b-4 border-brutal-border bg-brutal-white px-4 md:px-8 flex items-center justify-between shadow-[0_4px_0_0_var(--theme-border)] z-10 shrink-0">
+                <header className="h-16 border-b-2 border-brutal-border bg-brutal-white px-4 md:px-8 flex items-center justify-between shadow-[0_2px_0_0_var(--theme-border)] z-10 shrink-0">
                     <div className="flex items-center gap-4">
                         <button
-                            className="md:hidden p-2 bg-brutal-yellow border-2 border-brutal-border text-black brutal-shadow-sm hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+                            className="md:hidden p-2 bg-brutal-yellow border-2 border-brutal-border text-black shadow-[2px_2px_0px_0px_var(--theme-border)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all"
                             onClick={() => setIsMobileMenuOpen(true)}
                         >
                             <Menu className="w-5 h-5" />
@@ -109,7 +109,7 @@ export function AdminLayout() {
                         {/* Theme Toggle Button */}
                         <button
                             onClick={toggleTheme}
-                            className={`flex-shrink-0 flex items-center justify-center w-10 h-10 border-2 border-brutal-border rounded-full transition-all shadow-[2px_2px_0px_0px_var(--theme-border)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none bg-brutal-bg text-brutal-black hover:bg-brutal-yellow hover:text-black`}
+                            className="flex-shrink-0 flex items-center justify-center w-10 h-10 border-2 border-brutal-border rounded-full transition-all shadow-[2px_2px_0px_0px_var(--theme-border)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none bg-brutal-bg text-brutal-black hover:bg-brutal-yellow hover:text-black cursor-pointer"
                             aria-label="Toggle dark mode"
                         >
                             {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
@@ -117,7 +117,7 @@ export function AdminLayout() {
 
                         <Link
                             to="/"
-                            className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-brutal-yellow text-black border-2 border-brutal-border font-heading font-black text-xs sm:text-sm uppercase shadow-[4px_4px_0px_0px_var(--theme-border)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all shrink-0"
+                            className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-brutal-yellow text-black border-2 border-brutal-border font-heading font-bold text-xs sm:text-sm uppercase shadow-[2px_2px_0px_0px_var(--theme-border)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all shrink-0"
                         >
                             <Home className="w-4 h-4" />
                             <span className="hidden sm:inline">Homepage</span>
@@ -126,7 +126,7 @@ export function AdminLayout() {
                 </header>
 
                 {/* Page Content */}
-                <main className="flex-1 p-4 md:p-8 overflow-auto">
+                <main className="flex-1 p-4 md:p-8 overflow-auto bg-brutal-bg">
                     <Outlet />
                 </main>
             </div>

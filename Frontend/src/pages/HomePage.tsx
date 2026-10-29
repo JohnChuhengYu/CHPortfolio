@@ -1,285 +1,421 @@
 import { Link } from "react-router";
 import { BrutalButton } from "@/components/ui/BrutalButton";
-import { BrutalCard } from "@/components/ui/BrutalCard";
 import { BrutalBadge } from "@/components/ui/BrutalBadge";
-import { GraduationCap, Zap, Wrench, Lightbulb, Sparkles, ArrowRight, Palette } from "lucide-react";
-import { motion, type Variants } from "framer-motion";
-import { DrawUnderline, PopDot, SlapTag, TerminalType, BlockReveal } from "@/components/ui/MotionEffects";
+import { ArrowRight, ExternalLink, Github, Terminal, Cpu, Database, Layers } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { gridItemsApi, type GridItem } from "@/api/gridItems";
 
-const skills = [
-    { label: "React 19", color: "cyan" as const },
-    { label: ".NET 10", color: "purple" as const },
-    { label: "TypeScript", color: "blue" as const },
-    { label: "PostgreSQL", color: "orange" as const },
-    { label: "Docker", color: "cyan" as const },
-    { label: "Tailwind CSS", color: "yellow" as const },
+const coreStack = [
+    { name: "React 19", color: "cyan" as const, desc: "Modern UI Layer" },
+    { name: ".NET 10", color: "purple" as const, desc: "High-Perf Web API" },
+    { name: "PostgreSQL 17", color: "blue" as const, desc: "Relational DB" },
+    { name: "Docker", color: "cyan" as const, desc: "Containerized Engine" },
+    { name: "TypeScript", color: "yellow" as const, desc: "Strict Type Safety" },
+    { name: "Tailwind v4", color: "pink" as const, desc: "Tokenized Styling" },
 ];
 
-const heroContainerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.15,
-            delayChildren: 0.1,
-        },
-    },
-};
-
-const heroBadgeVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.5 },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        transition: { type: "spring", stiffness: 500, damping: 15 }
-    }
-};
-
-const heroTitleVariants: Variants = {
-    hidden: { opacity: 0, y: 50, clipPath: "inset(100% 0 0 0)" },
-    visible: {
-        opacity: 1,
-        y: 0,
-        clipPath: "inset(0% 0 0 0)",
-        transition: { duration: 1, ease: [0.16, 1, 0.3, 1] }
-    },
-};
-
-const heroTaglineVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.8, ease: "easeOut" }
-    },
-};
-
-const heroButtonsContainerVariants: Variants = {
-    hidden: {},
-    visible: {
-        transition: { staggerChildren: 0.15 }
-    }
-};
-
-const heroButtonVariants: Variants = {
-    hidden: { opacity: 0, y: 20, scale: 0.9 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        transition: { type: "spring", stiffness: 350, damping: 20 }
-    }
-};
-
-const aboutCardsContainerVariants: Variants = {
-    hidden: {},
-    visible: {
-        transition: {
-            staggerChildren: 0.15,
-            delayChildren: 0.1
-        },
-    },
-};
-
-const aboutCardVariants: Variants = {
-    hidden: { opacity: 0, y: 100, rotate: 5, scale: 0.95 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        rotate: 0,
-        scale: 1,
-        transition: {
-            type: "spring",
-            stiffness: 250,
-            damping: 18,
-        },
-    },
-};
-
 export function HomePage() {
+    // Fetch real projects from the backend
+    const { data: projects = [] } = useQuery<GridItem[]>({
+        queryKey: ["grid-items", "Project"],
+        queryFn: async () => {
+            try {
+                return await gridItemsApi.getAll("Project");
+            } catch {
+                return [];
+            }
+        },
+    });
+
+    // Fetch real devlogs for recent notes
+    const { data: devlogs = [] } = useQuery<GridItem[]>({
+        queryKey: ["grid-items", "DevLog"],
+        queryFn: async () => {
+            try {
+                return await gridItemsApi.getAll("DevLog");
+            } catch {
+                return [];
+            }
+        },
+    });
+
+    // Fetch real daily photography
+    const { data: dailies = [] } = useQuery<GridItem[]>({
+        queryKey: ["grid-items", "Daily"],
+        queryFn: async () => {
+            try {
+                return await gridItemsApi.getAll("Daily");
+            } catch {
+                return [];
+            }
+        },
+    });
+
     return (
-        <div className="px-6 py-8 w-full overflow-hidden">
-            {/* ─── Hero Section ─── */}
-            <motion.section
-                variants={heroContainerVariants}
-                initial="hidden"
-                animate="visible"
-                className="min-h-[calc(100vh-140px)] flex flex-col justify-center items-center gap-8 py-12"
-            >
-                {/* Decorative tag */}
-                <motion.div variants={heroBadgeVariants}>
-                    <BrutalBadge color="cyan" className="px-10 py-6 text-xl mb-2 md:mb-6">
-                        Full-Stack Developer
-                    </BrutalBadge>
-                </motion.div>
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-24 md:space-y-32">
+            {/* ─── Hero Section: Split Stage ─── */}
+            <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center pt-4 md:pt-10">
+                {/* Left: Headline & Actions (7 cols) */}
+                <div className="lg:col-span-7 space-y-6">
+                    <div className="inline-flex items-center gap-2 border-2 border-brutal-border bg-brutal-white px-3 py-1 shadow-[2px_2px_0px_0px_var(--theme-border)]">
+                        <span className="w-2.5 h-2.5 bg-brutal-lime rounded-full animate-pulse border border-brutal-border" />
+                        <span className="font-mono text-xs font-bold uppercase tracking-wider text-brutal-black">
+                            Monash University · MIT Candidate
+                        </span>
+                    </div>
 
-                {/* Giant heading */}
-                <motion.h1
-                    variants={heroTitleVariants}
-                    className="font-heading text-6xl md:text-8xl lg:text-9xl font-bold leading-[0.95] tracking-tighter mb-4 text-center"
-                >
-                    Hi, I'm{" "}
-                    <span className="relative inline-block">
-                        <span className="relative z-10">CH</span>
-                        <DrawUnderline />
-                    </span>
-                    <PopDot delay={0.9} className="text-brutal-purple text-5xl md:text-8xl lg:text-9xl align-baseline" />
-                </motion.h1>
+                    <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight text-brutal-black leading-[1.06] overflow-wrap-anywhere">
+                        Building Scalable Systems for the Web<span className="text-brutal-yellow">.</span>
+                    </h1>
 
-                {/* Tagline */}
-                <motion.p
-                    variants={heroTaglineVariants}
-                    className="font-heading text-xl md:text-3xl max-w-4xl mb-10 leading-loose md:leading-[1.8] text-brutal-black/80 text-center"
-                >
-                    I build things for the web with{" "}
-                    <SlapTag delay={0.6} rotate={-3} className="bg-brutal-cyan text-black px-3 py-1.5 border-2 border-black dark:border-gray-700 font-bold brutal-interactive mx-2 my-1 md:my-0">React</SlapTag> and{" "}
-                    <SlapTag delay={0.7} rotate={2} className="bg-brutal-purple text-white px-3 py-1.5 border-2 border-black dark:border-gray-700 font-bold brutal-interactive mx-2 my-1 md:my-0">.NET</SlapTag>.<br className="hidden md:block" />
-                    <span className="mt-4 md:mt-4 inline-block">
-                        Currently pursuing{" "}
-                        <SlapTag delay={0.9} rotate={-2} className="bg-brutal-yellow text-black px-3 py-1.5 border-2 border-black dark:border-gray-700 font-bold brutal-interactive mx-2 my-1 md:my-0">MIT @ Monash University</SlapTag>.
-                    </span>
-                </motion.p>
+                    <p className="font-mono text-base sm:text-lg text-brutal-muted max-w-2xl leading-relaxed">
+                        Full-stack software engineer crafting robust React applications backed by performant .NET architectures and containerized cloud systems.
+                    </p>
 
-                {/* CTA Buttons */}
-                <motion.div variants={heroButtonsContainerVariants} className="flex flex-wrap gap-6 mt-4 hero-buttons">
-                    <motion.div variants={heroButtonVariants}>
-                        <Link to="/projects" className="block">
+                    {/* Tech Badges */}
+                    <div className="flex flex-wrap gap-2 pt-2">
+                        {coreStack.map((tech) => (
+                            <BrutalBadge key={tech.name} color={tech.color} className="text-xs px-2.5 py-1">
+                                {tech.name}
+                            </BrutalBadge>
+                        ))}
+                    </div>
+
+                    {/* Primary CTAs */}
+                    <div className="flex flex-wrap gap-4 pt-4">
+                        <Link to="/projects">
                             <BrutalButton variant="primary" size="lg" className="flex items-center gap-2">
-                                View Projects <ArrowRight className="w-5 h-5" />
+                                Explore Projects <ArrowRight className="w-5 h-5" />
                             </BrutalButton>
                         </Link>
-                    </motion.div>
-                    <motion.div variants={heroButtonVariants}>
-                        <Link to="/daily" className="block">
-                            <BrutalButton variant="cyan" size="lg" className="flex items-center gap-2">
-                                My Daily Life <Sparkles className="w-5 h-5" />
+                        <Link to="/devlog">
+                            <BrutalButton variant="white" size="lg" className="flex items-center gap-2">
+                                Read DevLog <Terminal className="w-5 h-5" />
                             </BrutalButton>
                         </Link>
-                    </motion.div>
-                    <motion.div variants={heroButtonVariants}>
-                        <Link to="/components" className="w-full sm:w-auto block">
-                            <BrutalButton variant="black" size="lg" className="flex items-center gap-2 w-full sm:w-auto">
-                                Design System <Palette className="w-5 h-5" />
-                            </BrutalButton>
-                        </Link>
-                    </motion.div>
-                </motion.div>
-            </motion.section>
+                    </div>
+                </div>
 
-            {/* ─── About Section ─── */}
-            <section className="about-section py-16 md:py-24">
-                <motion.h2
-                    initial={{ opacity: 0, x: -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="font-heading text-4xl md:text-5xl font-bold mb-12 cursor-default flex items-center"
-                >
-                    About Me
-                    <motion.span
-                        initial={{ scale: 0 }}
-                        whileInView={{ scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ type: "spring", stiffness: 300, damping: 12, delay: 0.3 }}
-                        className="text-brutal-red ml-2 text-6xl leading-[0] origin-bottom inline-block"
+                {/* Right: Hardware & Workstation Render (5 cols) */}
+                <div className="lg:col-span-5">
+                    <div className="relative group">
+                        <div className="relative bg-brutal-white border-2 border-brutal-border shadow-[8px_8px_0px_0px_var(--theme-border)] overflow-hidden">
+                            <img
+                                src="/images/hero-workstation-3d.jpg"
+                                alt="High-Performance Developer Workstation Setup"
+                                className="w-full aspect-[4/3] object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
+                                loading="eager"
+                            />
+                            {/* Overlay Badge */}
+                            <div className="absolute bottom-3 left-3 right-3 bg-brutal-white/95 backdrop-blur-sm border-2 border-brutal-border p-3 flex items-center justify-between shadow-[2px_2px_0px_0px_var(--theme-border)]">
+                                <div className="flex items-center gap-2">
+                                    <Cpu className="w-4 h-4 text-brutal-purple" />
+                                    <span className="font-mono text-xs font-bold uppercase text-brutal-black">
+                                        Engineering Workstation
+                                    </span>
+                                </div>
+                                <span className="font-mono text-[10px] bg-brutal-yellow text-black font-bold px-2 py-0.5 border border-brutal-border">
+                                    2026 Active
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ─── Featured Projects Showcase ─── */}
+            <section className="space-y-8">
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-2 border-brutal-border pb-4">
+                    <div>
+                        <span className="font-mono text-xs font-bold uppercase text-brutal-muted">Portfolio Works</span>
+                        <h2 className="font-heading text-3xl sm:text-4xl font-black uppercase text-brutal-black">
+                            Featured Projects<span className="text-brutal-cyan">.</span>
+                        </h2>
+                    </div>
+                    <Link
+                        to="/projects"
+                        className="font-mono text-xs font-bold uppercase flex items-center gap-1.5 text-brutal-black hover:text-brutal-yellow transition-colors"
                     >
-                        <motion.span
-                            animate={{ opacity: [1, 0.2, 1] }}
-                            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                            className="inline-block"
-                        >
-                            .
-                        </motion.span>
-                    </motion.span>
-                </motion.h2>
+                        View All Projects ({projects.length}) <ArrowRight className="w-4 h-4" />
+                    </Link>
+                </div>
 
-                <motion.div
-                    variants={aboutCardsContainerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10"
-                >
-                    {/* Card 1: Background (Spans 2 cols, 2 rows) */}
-                    <motion.div variants={aboutCardVariants} className="md:col-span-2 md:row-span-2 flex flex-col h-full transform-gpu">
-                        <BrutalCard color="yellow" hoverable className="h-full">
-                            <h3 className="font-heading text-3xl font-bold mb-4 flex items-center gap-2">
-                                <GraduationCap className="w-8 h-8" /> Education
-                            </h3>
-                            <div className="text-xl leading-relaxed mt-2 min-h-[90px]">
-                                <BlockReveal delay={0.8} boxColor="bg-brutal-purple">
-                                    Master of Information Technology at{" "}
-                                    <span className="font-bold underline decoration-4 decoration-black">Monash University</span>.
-                                    Passionate about building clean, performant full-stack applications
-                                    that push the boundaries of modern web technology.
-                                </BlockReveal>
-                            </div>
-                        </BrutalCard>
-                    </motion.div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {projects.slice(0, 2).map((item) => {
+                        const fallbackImage = item.title.includes("Visual")
+                            ? "http://localhost:5298/uploads/1815eb90-7439-4bab-95d4-212b1e91ad40.png"
+                            : "http://localhost:5298/uploads/17abb75d-ec3e-437d-a787-b20935f2b8fc.png";
+                        const imageUrl = item.imageUrl || fallbackImage;
 
-                    {/* Card 2: What I Do (Spans 2 cols) */}
-                    <motion.div variants={aboutCardVariants} className="md:col-span-2 flex flex-col h-full transform-gpu">
-                        <BrutalCard color="purple" hoverable className="text-white h-full">
-                            <h3 className="font-heading text-2xl font-bold mb-3 flex items-center gap-2">
-                                <Zap className="w-6 h-6" /> What I Do
-                            </h3>
-                            <div className="text-lg leading-relaxed mt-2 min-h-[80px]">
-                                <TerminalType
-                                    text="Full-stack development with a focus on React ecosystems, .NET backends, and cloud-native deployments."
-                                    delay={0.95}
-                                    speed={30}
-                                    promptColor="text-brutal-yellow"
-                                    cursorColor="bg-brutal-yellow"
-                                />
-                            </div>
-                        </BrutalCard>
-                    </motion.div>
-
-                    {/* Card 3: Tech Stack (Spans 2 cols) */}
-                    <motion.div variants={aboutCardVariants} className="md:col-span-2 flex flex-col h-full transform-gpu">
-                        <BrutalCard color="cyan" hoverable className="h-full">
-                            <h3 className="font-heading text-2xl font-bold mb-3 flex items-center gap-2">
-                                <Wrench className="w-6 h-6" /> Tech Stack
-                            </h3>
-                            <div className="flex flex-wrap gap-3 mt-4">
-                                {skills.map((skill, i) => (
-                                    <motion.div
-                                        key={skill.label}
-                                        initial={{ opacity: 0, scale: 0.5, y: 15 }}
-                                        whileInView={{
-                                            opacity: 1,
-                                            scale: 1,
-                                            y: 0,
-                                            transition: { delay: 1.1 + i * 0.1, type: "spring", stiffness: 400, damping: 12 }
+                        return (
+                            <div
+                                key={item.id}
+                                className="bg-brutal-white border-2 border-brutal-border shadow-[6px_6px_0px_0px_var(--theme-border)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[3px_3px_0px_0px_var(--theme-border)] transition-all flex flex-col justify-between overflow-hidden group"
+                            >
+                                <div className="border-b-2 border-brutal-border bg-brutal-bg overflow-hidden aspect-[16/9]">
+                                    <img
+                                        src={imageUrl}
+                                        alt={item.title}
+                                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                                        onError={(e) => {
+                                            (e.currentTarget as HTMLImageElement).src = fallbackImage;
                                         }}
-                                        viewport={{ once: true }}
-                                        className="inline-block"
-                                    >
-                                        <BrutalBadge color={skill.color} className="px-4 py-2 text-sm cursor-default">
-                                            {skill.label}
-                                        </BrutalBadge>
-                                    </motion.div>
-                                ))}
+                                    />
+                                </div>
+                                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                                    <div className="space-y-2">
+                                        <div className="flex flex-wrap gap-2">
+                                            {item.tags?.map((tag) => (
+                                                <BrutalBadge key={tag} color="yellow" className="text-[10px] px-2 py-0.5">
+                                                    {tag}
+                                                </BrutalBadge>
+                                            ))}
+                                        </div>
+                                        <h3 className="font-heading text-2xl font-black text-brutal-black uppercase">
+                                            {item.title}
+                                        </h3>
+                                        <p className="font-mono text-xs text-brutal-muted line-clamp-3 leading-relaxed">
+                                            {item.content || item.subTitle || "Full-stack application engineered with modern architectural patterns."}
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center justify-between pt-4 border-t border-brutal-border/40">
+                                        <Link
+                                            to={`/project/${item.id}`}
+                                            className="font-heading font-black text-xs uppercase flex items-center gap-1.5 text-brutal-black hover:text-brutal-yellow transition-colors"
+                                        >
+                                            Detailed Specs <ArrowRight className="w-4 h-4" />
+                                        </Link>
+                                        {item.githubUrl && (
+                                            <a
+                                                href={item.githubUrl}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="p-2 border border-brutal-border bg-brutal-bg hover:bg-brutal-yellow hover:text-black transition-colors"
+                                                title="GitHub Repository"
+                                            >
+                                                <Github className="w-4 h-4" />
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
-                        </BrutalCard>
-                    </motion.div>
+                        );
+                    })}
+                </div>
+            </section>
 
-                    {/* Card 4: Philosophy (Spans all 4 cols) */}
-                    <motion.div variants={aboutCardVariants} className="md:col-span-4 mt-2 flex flex-col h-full transform-gpu">
-                        <BrutalCard color="white" hoverable className="h-full">
-                            <h3 className="font-heading text-3xl font-bold mb-5 flex items-center gap-2">
-                                <Lightbulb className="w-8 h-8" /> Philosophy
-                            </h3>
-                            <div className="text-xl leading-relaxed max-w-4xl mt-2 min-h-[90px]">
-                                <BlockReveal delay={1.4} boxColor="bg-brutal-yellow">
-                                    I believe in <span className="font-bold bg-brutal-yellow text-black px-1 border-2 border-black dark:border-gray-700">shipping fast</span>,
-                                    iterating often, and embracing the latest tools. Every project in my portfolio
-                                    is a testament to learning by building — not just reading docs.
-                                </BlockReveal>
+            {/* ─── System Architecture & Engineering ─── */}
+            <section className="bg-brutal-white border-2 border-brutal-border shadow-[8px_8px_0px_0px_var(--theme-border)] p-6 sm:p-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                    {/* Visual: 3D Cloud Infrastructure Render (5 cols) */}
+                    <div className="lg:col-span-5 border-2 border-brutal-border bg-brutal-bg shadow-[4px_4px_0px_0px_var(--theme-border)] overflow-hidden">
+                        <img
+                            src="/images/cloud-architecture-3d.jpg"
+                            alt="Cloud Architecture & Server Infrastructure"
+                            className="w-full aspect-[4/3] object-cover object-center"
+                        />
+                        <div className="p-3 bg-brutal-white border-t-2 border-brutal-border flex items-center justify-between">
+                            <span className="font-mono text-xs font-bold text-brutal-black uppercase flex items-center gap-1.5">
+                                <Database className="w-4 h-4 text-brutal-cyan" /> Cloud-Native Stack
+                            </span>
+                            <span className="font-mono text-[10px] text-brutal-muted">Dockerized & Self-Hosted</span>
+                        </div>
+                    </div>
+
+                    {/* Content: Specs & Capabilities (7 cols) */}
+                    <div className="lg:col-span-7 space-y-6">
+                        <div>
+                            <span className="font-mono text-xs font-bold uppercase text-brutal-muted">Under the Hood</span>
+                            <h2 className="font-heading text-3xl sm:text-4xl font-black uppercase text-brutal-black">
+                                Production-Grade Architecture<span className="text-brutal-purple">.</span>
+                            </h2>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="p-4 bg-brutal-bg border-2 border-brutal-border space-y-2">
+                                <div className="flex items-center gap-2">
+                                    <Layers className="w-4 h-4 text-brutal-cyan" />
+                                    <h4 className="font-heading font-black text-sm uppercase text-brutal-black">Frontend Engine</h4>
+                                </div>
+                                <p className="font-mono text-xs text-brutal-muted leading-relaxed">
+                                    React 19 SPA, Vite build tool, Tailwind v4 design system, and seamless View Transitions API theming.
+                                </p>
                             </div>
-                        </BrutalCard>
-                    </motion.div>
-                </motion.div>
+
+                            <div className="p-4 bg-brutal-bg border-2 border-brutal-border space-y-2">
+                                <div className="flex items-center gap-2">
+                                    <Cpu className="w-4 h-4 text-brutal-purple" />
+                                    <h4 className="font-heading font-black text-sm uppercase text-brutal-black">Backend Services</h4>
+                                </div>
+                                <p className="font-mono text-xs text-brutal-muted leading-relaxed">
+                                    ASP.NET Core 10 Web API, Entity Framework Core ORM, ASP.NET Core Identity authentication with JWTs.
+                                </p>
+                            </div>
+
+                            <div className="p-4 bg-brutal-bg border-2 border-brutal-border space-y-2">
+                                <div className="flex items-center gap-2">
+                                    <Database className="w-4 h-4 text-brutal-blue" />
+                                    <h4 className="font-heading font-black text-sm uppercase text-brutal-black">Database Storage</h4>
+                                </div>
+                                <p className="font-mono text-xs text-brutal-muted leading-relaxed">
+                                    PostgreSQL 17 deployed in Docker, automated relational schema migrations, and physical file static routing.
+                                </p>
+                            </div>
+
+                            <div className="p-4 bg-brutal-bg border-2 border-brutal-border space-y-2">
+                                <div className="flex items-center gap-2">
+                                    <Terminal className="w-4 h-4 text-brutal-lime" />
+                                    <h4 className="font-heading font-black text-sm uppercase text-brutal-black">Telemetry & Analytics</h4>
+                                </div>
+                                <p className="font-mono text-xs text-brutal-muted leading-relaxed">
+                                    Session-deduplicated hit tracking, visitor geolocation/IP leaderboard, and real-time trend analytics.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="pt-2">
+                            <Link to="/components">
+                                <BrutalButton variant="cyan" size="md" className="flex items-center gap-2">
+                                    Inspect Component Library <ArrowRight className="w-4 h-4" />
+                                </BrutalButton>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ─── Recent DevLogs & Engineering Notes ─── */}
+            <section className="space-y-8">
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-2 border-brutal-border pb-4">
+                    <div>
+                        <span className="font-mono text-xs font-bold uppercase text-brutal-muted">Learning in Public</span>
+                        <h2 className="font-heading text-3xl sm:text-4xl font-black uppercase text-brutal-black">
+                            Engineering DevLogs<span className="text-brutal-yellow">.</span>
+                        </h2>
+                    </div>
+                    <Link
+                        to="/devlog"
+                        className="font-mono text-xs font-bold uppercase flex items-center gap-1.5 text-brutal-black hover:text-brutal-yellow transition-colors"
+                    >
+                        View All Entries ({devlogs.length}) <ArrowRight className="w-4 h-4" />
+                    </Link>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {devlogs.slice(0, 3).map((log) => (
+                        <Link
+                            key={log.id}
+                            to={`/devlog/${log.id}`}
+                            className="bg-brutal-white border-2 border-brutal-border p-6 shadow-[4px_4px_0px_0px_var(--theme-border)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all flex flex-col justify-between group"
+                        >
+                            <div className="space-y-3">
+                                <div className="flex items-center justify-between">
+                                    <span className="font-mono text-[10px] bg-brutal-bg text-brutal-muted border border-brutal-border px-2 py-0.5 uppercase font-bold">
+                                        {log.tags?.[0] || "DEVLOG"}
+                                    </span>
+                                    <span className="font-mono text-[10px] text-brutal-muted">
+                                        {new Date(log.updatedAt || log.createdAt || Date.now()).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                                    </span>
+                                </div>
+                                <h3 className="font-heading text-lg font-black uppercase text-brutal-black group-hover:text-brutal-yellow transition-colors leading-snug">
+                                    {log.title}
+                                </h3>
+                                <p className="font-mono text-xs text-brutal-muted line-clamp-3 leading-relaxed">
+                                    {log.content || log.problemDescription || "Technical breakdown and solution pattern implemented in code."}
+                                </p>
+                            </div>
+                            <div className="pt-4 mt-4 border-t border-brutal-border/30 flex items-center justify-between text-xs font-mono font-bold uppercase text-brutal-black">
+                                <span>Read Entry</span>
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+            </section>
+
+            {/* ─── Visual Moments & Photography ─── */}
+            {dailies.length > 0 && (
+                <section className="space-y-8">
+                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-2 border-brutal-border pb-4">
+                        <div>
+                            <span className="font-mono text-xs font-bold uppercase text-brutal-muted">Behind the Screen</span>
+                            <h2 className="font-heading text-3xl sm:text-4xl font-black uppercase text-brutal-black">
+                                Life & Photography<span className="text-brutal-pink">.</span>
+                            </h2>
+                        </div>
+                        <Link
+                            to="/daily"
+                            className="font-mono text-xs font-bold uppercase flex items-center gap-1.5 text-brutal-black hover:text-brutal-pink transition-colors"
+                        >
+                            View Visual Timeline <ArrowRight className="w-4 h-4" />
+                        </Link>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {dailies.slice(0, 2).map((daily) => (
+                            <Link
+                                key={daily.id}
+                                to={`/daily/${daily.id}`}
+                                className="bg-brutal-white border-2 border-brutal-border shadow-[6px_6px_0px_0px_var(--theme-border)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_var(--theme-border)] transition-all overflow-hidden group block"
+                            >
+                                {daily.imageUrl && (
+                                    <div className="aspect-[16/10] overflow-hidden border-b-2 border-brutal-border bg-brutal-bg">
+                                        <img
+                                            src={daily.imageUrl}
+                                            alt={daily.title}
+                                            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                    </div>
+                                )}
+                                <div className="p-6 space-y-3">
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-heading font-black text-xl uppercase text-brutal-black">
+                                            {daily.title}
+                                        </span>
+                                        <div className="flex gap-1.5">
+                                            {daily.tags?.map((tag) => (
+                                                <BrutalBadge key={tag} color="pink" className="text-[10px] px-2 py-0.5">
+                                                    {tag}
+                                                </BrutalBadge>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <p className="font-mono text-xs text-brutal-muted line-clamp-2">
+                                        {daily.content}
+                                    </p>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </section>
+            )}
+
+            {/* ─── Footer CTA ─── */}
+            <section className="bg-brutal-white border-2 border-brutal-border shadow-[8px_8px_0px_0px_var(--theme-border)] p-8 sm:p-12 text-center space-y-6">
+                <h2 className="font-heading text-3xl sm:text-5xl font-black uppercase text-brutal-black">
+                    Let's Build Something Exceptional<span className="text-brutal-lime">.</span>
+                </h2>
+                <p className="font-mono text-sm sm:text-base text-brutal-muted max-w-xl mx-auto leading-relaxed">
+                    Always interested in challenging full-stack engineering problems, modern web architectures, and collaborative open-source projects.
+                </p>
+                <div className="flex flex-wrap justify-center gap-4 pt-2">
+                    <a
+                        href="https://github.com/JohnChuhengYu"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 bg-brutal-bg text-brutal-black hover:bg-brutal-yellow hover:text-black border-2 border-brutal-border px-6 py-3 font-heading font-bold text-sm shadow-[3px_3px_0px_0px_var(--theme-border)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all"
+                    >
+                        <Github className="w-4 h-4" /> GitHub Profile
+                    </a>
+                    <a
+                        href="https://www.linkedin.com/in/chuhengyu"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 bg-brutal-bg text-brutal-black hover:bg-brutal-cyan hover:text-black border-2 border-brutal-border px-6 py-3 font-heading font-bold text-sm shadow-[3px_3px_0px_0px_var(--theme-border)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all"
+                    >
+                        <ExternalLink className="w-4 h-4" /> LinkedIn
+                    </a>
+                </div>
             </section>
         </div>
     );

@@ -555,6 +555,10 @@ html.dark {
   animation-duration: 0.7s;
 }
 
+::view-transition-image-pair(root) {
+  isolation: auto;
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
@@ -563,20 +567,20 @@ html.dark {
   overflow: clip;
 }
 
-/* Dark → Light: .dark is removed, so the old dark screen is on TOP and retracts into the button */
-::view-transition-old(root) {
+/* Dark → Light: .dark is removed, so html does not have .dark. Old dark snapshot stays on top and retracts */
+html:not(.dark)::view-transition-old(root) {
   z-index: 9999;
 }
 
-::view-transition-new(root) {
+html:not(.dark)::view-transition-new(root) {
   z-index: 1;
 }
 
-/* Light → Dark: .dark is present, so the new dark screen is on TOP and expands from the button */
-.dark::view-transition-old(root) {
+/* Light → Dark: .dark is added. New dark snapshot expands on top from button */
+html.dark::view-transition-old(root) {
   z-index: 1;
 }
 
-.dark::view-transition-new(root) {
+html.dark::view-transition-new(root) {
   z-index: 9999;
 }

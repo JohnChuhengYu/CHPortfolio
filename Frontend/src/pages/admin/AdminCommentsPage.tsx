@@ -84,11 +84,11 @@ export function AdminCommentsPage() {
     if (isError) {
         const isForbidden = (error as any)?.response?.status === 403;
         return (
-            <div className="border-4 border-black bg-brutal-red/10 p-12 text-center brutal-shadow">
-                <h2 className="font-heading font-black text-3xl uppercase mb-4">
+            <div className="border-2 border-brutal-border bg-brutal-red/10 p-12 text-center brutal-shadow">
+                <h2 className="font-heading font-black text-3xl uppercase mb-4 text-brutal-black">
                     {isForbidden ? "Access Denied" : "Error Loading Comments"}
                 </h2>
-                <p className="font-mono font-bold text-gray-700 dark:text-gray-300 mb-8 uppercase">
+                <p className="font-mono font-bold text-brutal-muted mb-8 uppercase">
                     {isForbidden
                         ? "Your account does not have permission to moderate comments."
                         : "Something went wrong while fetching the comments."}
@@ -96,11 +96,11 @@ export function AdminCommentsPage() {
                 <div className="flex justify-center gap-4">
                     <button
                         onClick={() => queryClient.invalidateQueries({ queryKey: ["admin-comments"] })}
-                        className="bg-brutal-black text-brutal-bg px-8 py-3 font-heading font-black uppercase border-4 border-brutal-border shadow-[4px_4px_0px_0px_var(--theme-border)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
+                        className="bg-brutal-yellow text-black px-8 py-3 font-heading font-black uppercase border-2 border-brutal-border shadow-[4px_4px_0px_0px_var(--theme-border)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
                     >
                         Try Again
                     </button>
-                    <Link to="/" className="bg-brutal-white text-brutal-black px-8 py-3 font-heading font-black uppercase border-4 border-black dark:border-gray-700 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+                    <Link to="/" className="bg-brutal-white text-brutal-black px-8 py-3 font-heading font-black uppercase border-2 border-brutal-border shadow-[4px_4px_0px_0px_var(--theme-border)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
                         Go Home
                     </Link>
                 </div>
@@ -111,11 +111,11 @@ export function AdminCommentsPage() {
     return (
         <div className="animate-fade-in">
             <header className="mb-12">
-                <h1 className="font-heading text-4xl font-black uppercase mb-2">
+                <h1 className="font-heading text-4xl font-black uppercase mb-2 text-brutal-black">
                     Comment Management
                     <span className="text-brutal-pink">.</span>
                 </h1>
-                <p className="font-mono text-gray-600 dark:text-gray-400 font-bold uppercase">
+                <p className="font-mono text-brutal-muted font-bold uppercase">
                     Moderate user discussions across your portfolio.
                 </p>
             </header>
@@ -125,7 +125,7 @@ export function AdminCommentsPage() {
                     comments.map((comment) => (
                         <div
                             key={comment.id}
-                            className="bg-brutal-white border-4 border-brutal-border p-6 hover:shadow-[8px_8px_0px_0px_var(--theme-border)] transition-all brutal-shadow-sm group relative"
+                            className="bg-brutal-white border-2 border-brutal-border p-6 hover:shadow-[6px_6px_0px_0px_var(--theme-border)] transition-all brutal-shadow-sm group relative"
                         >
                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-4 border-b-2 border-dashed border-brutal-border">
                                 <div className="flex items-center gap-3">
@@ -173,7 +173,7 @@ export function AdminCommentsPage() {
                                     }
                                 }}
                                 disabled={deleteMutation.isPending}
-                                className="md:absolute md:-top-4 md:-right-4 bg-brutal-red text-white p-3 border-4 border-brutal-border shadow-[4px_4px_0px_0px_var(--theme-border)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all disabled:opacity-50 flex items-center gap-2 font-heading font-black uppercase text-xs"
+                                className="md:absolute md:-top-3 md:-right-3 bg-brutal-red text-white p-2.5 border-2 border-brutal-border shadow-[3px_3px_0px_0px_var(--theme-border)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 transition-all disabled:opacity-50 flex items-center gap-2 font-heading font-black uppercase text-xs"
                             >
                                 <Trash2 className="w-4 h-4" />
                                 {deleteMutation.isPending && "Deleting..."}
@@ -181,12 +181,12 @@ export function AdminCommentsPage() {
                         </div>
                     ))
                 ) : (
-                    <div className="bg-brutal-white border-4 border-black dark:border-gray-700 brutal-shadow p-12 text-center text-brutal-black max-w-xl mx-auto flex flex-col items-center gap-4">
-                        <div className="w-16 h-16 bg-brutal-pink border-4 border-black dark:border-gray-700 brutal-shadow-sm flex items-center justify-center -rotate-3 text-black">
+                    <div className="bg-brutal-white border-2 border-brutal-border brutal-shadow p-12 text-center text-brutal-black max-w-xl mx-auto flex flex-col items-center gap-4">
+                        <div className="w-16 h-16 bg-brutal-pink border-2 border-brutal-border brutal-shadow-sm flex items-center justify-center -rotate-3 text-black">
                             <MessageSquare className="w-8 h-8" />
                         </div>
                         <h3 className="font-heading font-black text-2xl uppercase">No Comments Yet</h3>
-                        <p className="font-mono text-sm text-gray-500 dark:text-gray-400 font-bold uppercase max-w-sm">
+                        <p className="font-mono text-sm text-brutal-muted font-bold uppercase max-w-sm">
                             Discussions will show up here as visitors share their feedback on your projects and posts.
                         </p>
                     </div>

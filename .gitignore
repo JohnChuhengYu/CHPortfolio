@@ -84,3 +84,9 @@ docker-compose.override.yml
 # ========================
 Backend/wwwroot/uploads/*
 !Backend/wwwroot/uploads/.gitkeep
+
+# ========================
+# Tooling Scratch
+# ========================
+.hallmark/
+

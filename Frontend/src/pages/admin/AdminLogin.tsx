@@ -17,20 +17,24 @@ type LoginState = {
 
 export function AdminLogin() {
     const navigate = useNavigate();
-    const { login, isLoggedIn } = useAuth();
+    const { login, isLoggedIn, user } = useAuth();
     const [googleError, setGoogleError] = useState<string | null>(null);
     const [isExiting, setIsExiting] = useState(false);
+    const [exitTarget, setExitTarget] = useState<string>("/admin");
 
-    const handleExit = () => {
+    const isAdmin = user?.email === "ych0911y@gmail.com" || user?.email === "admin@chportfolio.dev";
+
+    const handleExit = (target = "/admin") => {
+        setExitTarget(target);
         setIsExiting(true);
     };
 
-    // Redirect if already logged in via exit animation
+    // Redirect to /admin if already logged in as admin
     useEffect(() => {
-        if (isLoggedIn) {
-            handleExit();
+        if (isLoggedIn && isAdmin) {
+            handleExit("/admin");
         }
-    }, [isLoggedIn]);
+    }, [isLoggedIn, isAdmin]);
 
     const [state, loginAction, isPending] = useActionState(
         async (_prevState: LoginState, formData: FormData): Promise<LoginState> => {
@@ -53,6 +57,7 @@ export function AdminLogin() {
                 // .NET Identity returns a bearer token upon success
                 if (data.accessToken) {
                     login(data.accessToken, email);
+                    handleExit("/admin");
                     return { error: null, success: true };
                 }
 
@@ -140,10 +145,10 @@ export function AdminLogin() {
     }, []);
 
     return (
-        <AnimatePresence onExitComplete={() => navigate("/")}>
+        <AnimatePresence onExitComplete={() => navigate(exitTarget)}>
             {!isExiting && (
                 <motion.div 
-                    className="flex items-center justify-center h-[100vh] w-[100vw] bg-brutal-purple fixed top-0 left-0 z-50 overflow-hidden"
+                    className="flex items-center justify-center h-[100vh] w-[100vw] bg-brutal-bg fixed top-0 left-0 z-50 overflow-hidden"
                     initial={{ opacity: 1 }}
                     exit={{ opacity: 0, transition: { duration: 0.4, delay: 0.2 } }}
                 >
@@ -155,14 +160,14 @@ export function AdminLogin() {
                         className="flex items-center justify-center w-full h-full"
                     >
                 <div
-                    className="w-full max-w-xl bg-brutal-white border-4 border-brutal-border brutal-shadow-lg p-12 relative flex-shrink-0"
+                    className="w-full max-w-xl bg-brutal-white border-2 border-brutal-border shadow-[8px_8px_0px_0px_var(--theme-border)] p-12 relative flex-shrink-0 text-brutal-black"
                     style={{ transform: `scale(${scale})`, transformOrigin: "center center" }}
                 >
 
                 {/* Decorative & Interactive Elements */}
                 <button
-                    onClick={handleExit}
-                    className="absolute -top-6 -left-6 w-14 h-14 bg-brutal-yellow border-4 border-brutal-border rounded-full flex items-center justify-center brutal-shadow-sm hover:bg-brutal-white hover:scale-110 transition-all z-10 group text-black"
+                    onClick={() => handleExit("/")}
+                    className="absolute -top-6 -left-6 w-14 h-14 bg-brutal-yellow border-2 border-brutal-border rounded-full flex items-center justify-center brutal-shadow-sm hover:bg-brutal-white hover:scale-110 transition-all z-10 group text-black"
                     title="Return Home"
                     type="button"
                 >
@@ -171,23 +176,28 @@ export function AdminLogin() {
 
                 <button
                     onClick={toggleTheme}
-                    className="absolute -top-6 -right-6 w-14 h-14 bg-brutal-yellow border-4 border-black dark:border-gray-700 rounded-full flex items-center justify-center brutal-shadow-sm hover:scale-110 hover:bg-brutal-white transition-all z-10 text-black"
+                    className="absolute -top-6 -right-6 w-14 h-14 bg-brutal-yellow border-2 border-brutal-border rounded-full flex items-center justify-center brutal-shadow-sm hover:scale-110 hover:bg-brutal-white transition-all z-10 text-black"
                     title="Toggle Dark Mode"
                     type="button"
                 >
                     {theme === "dark" ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
                 </button>
-                <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-brutal-cyan border-4 border-brutal-border pointer-events-none" />
+                <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-brutal-cyan border-2 border-brutal-border pointer-events-none" />
 
                 {/* Header */}
                 <div className="mb-10 text-center">
-                    <h1 className="font-heading text-6xl md:text-8xl font-black uppercase tracking-tighter mb-4">
+                    <h1 className="font-heading text-6xl md:text-8xl font-black uppercase tracking-tighter mb-4 text-brutal-black">
                         Login
                         <span className="text-brutal-red">!</span>
                     </h1>
                     <p className="text-black bg-brutal-yellow inline-block px-4 py-1 border-2 border-brutal-border font-mono font-bold text-lg md:text-xl transform -rotate-2">
                         AUTHORIZED PERSONNEL ONLY.
                     </p>
+                    {isLoggedIn && !isAdmin && (
+                        <div className="mt-4 p-2 bg-brutal-amber/20 border-2 border-brutal-border text-xs font-mono font-bold uppercase text-brutal-black">
+                            Signed in as {user?.email}. Enter Admin credentials below to switch.
+                        </div>
+                    )}
                 </div>
 
                 {/* Form */}

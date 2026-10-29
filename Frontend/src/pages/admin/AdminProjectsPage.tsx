@@ -148,27 +148,30 @@ export function AdminProjectsPage() {
                 </BrutalCard>
 
                 {/* Existing Projects */}
-                <BrutalCard color="yellow">
-                    <h2 className="font-heading text-lg font-bold mb-4">Existing Projects</h2>
+                <BrutalCard color="white">
+                    <div className="flex items-center justify-between mb-4 border-b-2 border-brutal-border pb-3">
+                        <h2 className="font-heading text-lg font-bold">Existing Projects</h2>
+                        <BrutalBadge color="yellow" className="text-xs py-0.5 px-2">{existingProjects.length}</BrutalBadge>
+                    </div>
                     <ul className="flex flex-col gap-3">
                         {isLoading ? (
-                            <li className="p-3">Loading projects...</li>
+                            <li className="p-4 text-center font-mono text-xs text-brutal-muted">Loading projects...</li>
                         ) : existingProjects.length === 0 ? (
-                            <li className="p-3 text-gray-500">No projects created yet.</li>
+                            <li className="p-4 text-center font-mono text-xs text-brutal-muted">No projects created yet.</li>
                         ) : (
                             existingProjects.map((p: any) => (
-                                <li key={p.id} className="relative bg-brutal-white border-2 border-brutal-border p-4 group">
+                                <li key={p.id} className="relative bg-brutal-bg border-2 border-brutal-border p-4 hover:border-brutal-yellow transition-all group">
                                     <div className="flex flex-col items-start gap-2 pr-8">
-                                        <span className="font-heading font-semibold text-sm break-words dark:text-white">{p.title}</span>
+                                        <span className="font-heading font-bold text-sm break-words text-brutal-black">{p.title}</span>
                                         <BrutalBadge color="cyan" className="text-xs py-0.5">{p.type}</BrutalBadge>
                                     </div>
                                     <button
                                         type="button"
                                         onClick={() => triggerDelete(p.id)}
-                                        className="absolute top-2 right-2 bg-brutal-red text-white border-2 border-brutal-border brutal-shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all p-1"
+                                        className="absolute top-2 right-2 bg-brutal-red text-white border-2 border-brutal-border shadow-[2px_2px_0px_0px_var(--theme-border)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all p-1.5 cursor-pointer"
                                         title="Delete Project"
                                     >
-                                        <X className="w-4 h-4" strokeWidth={3} />
+                                        <X className="w-3.5 h-3.5" strokeWidth={3} />
                                     </button>
                                 </li>
                             ))
