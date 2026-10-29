@@ -159,3 +159,12 @@ dotnet ef database update
 On first startup, the database automatically seeds a default administrator:
 - **Email**: `admin@chportfolio.dev`
 - **Password**: `Admin123!`
+
+---
+
+## 📜 License & Documentation
+
+- **License**: Released under the [MIT License](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/LICENSE).
+- **Root Repository & Documentation Hub**: [CHPortfolio](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/README.md)
+- **Deployment Guide**: [Production Deployment (Docker & Nginx)](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/DEPLOYMENT.md)
+- **Contributing Guidelines**: [CONTRIBUTING.md](file:///Users/yuchuheng/OneDrive%20-%20Westlake%20Boys%20High%20School/数据传输/CHPortfolio/CONTRIBUTING.md)
