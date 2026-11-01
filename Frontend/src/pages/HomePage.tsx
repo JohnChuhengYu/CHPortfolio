@@ -174,11 +174,11 @@ export function HomePage() {
                         <p className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl text-brutal-black font-bold leading-tight">
                             I build high-performance web systems with{" "}
                             <span className="inline-flex items-center gap-1.5 align-baseline flex-nowrap">
-                                <SlapTag delay={0.3} rotate={-2} className="bg-brutal-cyan text-black px-2.5 sm:px-3 py-0.5 sm:py-1 border-2 border-brutal-border font-bold shadow-[2px_2px_0px_0px_var(--theme-border)] text-base sm:text-xl md:text-2xl">
+                                <SlapTag delay={0.3} rotate={-2} hoverRotate={-6} className="bg-brutal-cyan text-black px-2.5 sm:px-3 py-0.5 sm:py-1 border-2 border-brutal-border font-bold shadow-[2px_2px_0px_0px_var(--theme-border)] text-base sm:text-xl md:text-2xl">
                                     React 19
                                 </SlapTag>
                                 <span className="text-brutal-muted font-mono">&amp;</span>
-                                <SlapTag delay={0.45} rotate={2} className="bg-brutal-purple text-white px-2.5 sm:px-3 py-0.5 sm:py-1 border-2 border-brutal-border font-bold shadow-[2px_2px_0px_0px_var(--theme-border)] text-base sm:text-xl md:text-2xl">
+                                <SlapTag delay={0.45} rotate={2} hoverRotate={6} className="bg-brutal-purple text-white px-2.5 sm:px-3 py-0.5 sm:py-1 border-2 border-brutal-border font-bold shadow-[2px_2px_0px_0px_var(--theme-border)] text-base sm:text-xl md:text-2xl">
                                     .NET 10
                                 </SlapTag>
                                 <span className="text-brutal-yellow font-black">.</span>

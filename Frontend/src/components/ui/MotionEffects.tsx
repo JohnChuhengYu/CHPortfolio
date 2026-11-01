@@ -21,12 +21,35 @@ export const PopDot = ({ delay = 1.0, className = "" }: { delay?: number, classN
     </motion.span>
 );
 
-export const SlapTag = ({ children, delay, rotate, className = "" }: { children: React.ReactNode, delay: number, rotate: number, className?: string }) => (
+export const SlapTag = ({
+    children,
+    delay,
+    rotate,
+    className = "",
+    hoverRotate,
+}: {
+    children: React.ReactNode;
+    delay: number;
+    rotate: number;
+    className?: string;
+    hoverRotate?: number;
+}) => (
     <motion.span
         initial={{ opacity: 0, scale: 1.2, y: -15, rotate: rotate - 5 }}
         animate={{ opacity: 1, scale: 1, y: 0, rotate }}
+        whileHover={{
+            scale: 1.12,
+            rotate: hoverRotate ?? (rotate > 0 ? 5 : -5),
+            y: -3,
+            transition: { type: "spring", stiffness: 450, damping: 14 },
+        }}
+        whileTap={{
+            scale: 0.94,
+            y: 1,
+            transition: { type: "spring", stiffness: 500, damping: 15 },
+        }}
         transition={{ type: "spring", stiffness: 350, damping: 20, delay }}
-        className={`inline-block ${className}`}
+        className={`inline-block cursor-pointer select-none transition-shadow duration-150 hover:shadow-[4px_4px_0px_0px_var(--theme-border)] active:shadow-[1px_1px_0px_0px_var(--theme-border)] ${className}`}
         style={{ transformOrigin: "center" }}
     >
         {children}
