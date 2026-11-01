@@ -143,20 +143,10 @@ export function HomePage() {
                 variants={heroContainerVariants}
                 initial="hidden"
                 animate="visible"
-                className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[calc(100vh-7.5rem)] md:min-h-[calc(100vh-10.5rem)] min-h-[calc(100dvh-7.5rem)] md:min-h-[calc(100dvh-10.5rem)] flex flex-col justify-between items-center text-center pb-4 sm:pb-6 relative"
+                className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[calc(100vh-5.5rem)] md:min-h-[calc(100vh-7.5rem)] min-h-[calc(100dvh-5.5rem)] md:min-h-[calc(100dvh-7.5rem)] flex flex-col justify-between items-center text-center pb-2 sm:pb-4 relative"
             >
-                {/* 1. Status Indicator Pill */}
-                <motion.div variants={heroBadgeVariants} className="pt-2 sm:pt-4">
-                    <div className="inline-flex items-center gap-2 border-2 border-brutal-border bg-brutal-white px-4 py-1.5 shadow-[2px_2px_0px_0px_var(--theme-border)]">
-                        <span className="w-2.5 h-2.5 bg-brutal-lime rounded-full animate-pulse border border-brutal-border" />
-                        <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-brutal-black">
-                            Full-Stack Developer · Monash University MIT Candidate
-                        </span>
-                    </div>
-                </motion.div>
-
-                {/* 2. Coherent Central Content Cluster */}
-                <div className="my-auto flex flex-col items-center justify-center gap-6 sm:gap-7 md:gap-8 w-full max-w-4xl py-4 sm:py-6">
+                {/* 1. Harmonious Central Content Cluster (No stranded top pill, vertically balanced) */}
+                <div className="my-auto flex flex-col items-center justify-center gap-5 sm:gap-6 md:gap-7 w-full max-w-4xl py-2 sm:py-4">
                     {/* Bold Expressive Headline */}
                     <motion.h1
                         variants={heroTitleVariants}
@@ -170,8 +160,17 @@ export function HomePage() {
                         <PopDot delay={0.6} className="text-brutal-purple text-5xl sm:text-7xl md:text-8xl lg:text-9xl align-baseline" />
                     </motion.h1>
 
-                    {/* Tagline & Subtitle */}
-                    <motion.div variants={heroTaglineVariants} className="space-y-3 max-w-3xl mx-auto">
+                    {/* Integrated Central Copy Cluster */}
+                    <motion.div variants={heroTaglineVariants} className="space-y-3.5 max-w-3xl mx-auto flex flex-col items-center">
+                        {/* Status Indicator Pill - Nested naturally within middle copy */}
+                        <div className="inline-flex items-center gap-2 border-2 border-brutal-border bg-brutal-white px-3.5 py-1 shadow-[2px_2px_0px_0px_var(--theme-border)]">
+                            <span className="w-2 h-2 bg-brutal-lime rounded-full animate-pulse border border-brutal-border" />
+                            <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-brutal-black">
+                                Full-Stack Developer · Monash University MIT Candidate
+                            </span>
+                        </div>
+
+                        {/* Rhythmic Core Tagline */}
                         <p className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl text-brutal-black font-bold leading-tight">
                             I build high-performance web systems with{" "}
                             <span className="inline-flex items-center gap-1.5 align-baseline flex-nowrap">
@@ -185,8 +184,10 @@ export function HomePage() {
                                 <span className="text-brutal-yellow font-black">.</span>
                             </span>
                         </p>
+
+                        {/* Sub-copy */}
                         <p className="font-mono text-xs sm:text-sm md:text-base text-brutal-muted max-w-2xl mx-auto leading-relaxed">
-                            Full-stack software engineer crafting resilient cloud architectures, containerized microservices, and tactile Neo-Brutalist interfaces.
+                            Crafting resilient cloud architectures, containerized microservices, and tactile Neo-Brutalist interfaces.
                         </p>
                     </motion.div>
 
@@ -241,7 +242,7 @@ export function HomePage() {
                     </motion.div>
                 </div>
 
-                {/* 3. Bouncing Scroll Guide Pinned to Viewport Bottom */}
+                {/* 2. Bouncing Scroll Guide Pinned to Viewport Bottom */}
                 <motion.button
                     animate={{ y: [0, 8, 0] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}

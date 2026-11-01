@@ -81,7 +81,7 @@ export function RootLayout() {
                     }`}
             />
             {/* ─── Floating Navbar ─── */}
-            <header className="sticky top-4 md:top-8 z-50 mb-8 md:mb-12 px-4 md:px-8 max-w-7xl mx-auto w-full pointer-events-none">
+            <header className={`sticky ${pathname === "/" ? "top-3 md:top-6 mb-3 md:mb-5" : "top-4 md:top-8 mb-8 md:mb-12"} z-50 px-4 md:px-8 max-w-7xl mx-auto w-full pointer-events-none transition-all`}>
                 <div className="bg-brutal-white border-3 md:border-4 border-black dark:border-gray-700 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_#333] h-16 md:h-20 flex items-center justify-between px-3 md:px-6 pointer-events-auto transition-all">
                     {/* Brand */}
                     <Link
