@@ -137,118 +137,121 @@ export function HomePage() {
     return (
         <div className="w-full flex flex-col items-center overflow-x-hidden">
             {/* ═══════════════════════════════════════════════════════════════
-                HERO SECTION: BALANCED, TIGHT & HARMONIOUS ENTRANCE
+                HERO SECTION: FULL-VIEWPORT RESPONSIVE LANDING ENTRANCE
                ═══════════════════════════════════════════════════════════════ */}
             <motion.section
                 variants={heroContainerVariants}
                 initial="hidden"
                 animate="visible"
-                className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-6 md:py-10 flex flex-col items-center justify-center gap-5 sm:gap-6 text-center"
+                className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[calc(100vh-7.5rem)] md:min-h-[calc(100vh-10.5rem)] min-h-[calc(100dvh-7.5rem)] md:min-h-[calc(100dvh-10.5rem)] flex flex-col justify-between items-center text-center pb-4 sm:pb-6 relative"
             >
                 {/* 1. Status Indicator Pill */}
-                <motion.div variants={heroBadgeVariants}>
-                    <div className="inline-flex items-center gap-2 border-2 border-brutal-border bg-brutal-white px-3.5 py-1 shadow-[2px_2px_0px_0px_var(--theme-border)]">
-                        <span className="w-2 h-2 bg-brutal-lime rounded-full animate-pulse border border-brutal-border" />
+                <motion.div variants={heroBadgeVariants} className="pt-2 sm:pt-4">
+                    <div className="inline-flex items-center gap-2 border-2 border-brutal-border bg-brutal-white px-4 py-1.5 shadow-[2px_2px_0px_0px_var(--theme-border)]">
+                        <span className="w-2.5 h-2.5 bg-brutal-lime rounded-full animate-pulse border border-brutal-border" />
                         <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-brutal-black">
                             Full-Stack Developer · Monash University MIT Candidate
                         </span>
                     </div>
                 </motion.div>
 
-                {/* 2. Bold Expressive Headline */}
-                <motion.h1
-                    variants={heroTitleVariants}
-                    className="font-heading text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black leading-[0.92] tracking-tighter text-brutal-black"
-                >
-                    Hi, I'm{" "}
-                    <span className="relative inline-block">
-                        <span className="relative z-10">CH</span>
-                        <DrawUnderline />
-                    </span>
-                    <PopDot delay={0.6} className="text-brutal-purple text-4xl sm:text-7xl md:text-8xl lg:text-9xl align-baseline" />
-                </motion.h1>
-
-                {/* 3. Coherent, Beautifully-Rhythmed Tagline */}
-                <motion.div variants={heroTaglineVariants} className="space-y-2.5 max-w-2xl mx-auto">
-                    <p className="font-heading text-lg sm:text-2xl md:text-3xl text-brutal-black font-bold leading-tight">
-                        I build high-performance web systems with{" "}
-                        <span className="inline-flex items-center gap-1.5 align-baseline flex-nowrap">
-                            <SlapTag delay={0.3} rotate={-2} className="bg-brutal-cyan text-black px-2.5 py-0.5 border-2 border-brutal-border font-bold shadow-[2px_2px_0px_0px_var(--theme-border)] text-sm sm:text-xl">
-                                React 19
-                            </SlapTag>
-                            <span className="text-brutal-muted font-mono">&amp;</span>
-                            <SlapTag delay={0.45} rotate={2} className="bg-brutal-purple text-white px-2.5 py-0.5 border-2 border-brutal-border font-bold shadow-[2px_2px_0px_0px_var(--theme-border)] text-sm sm:text-xl">
-                                .NET 10
-                            </SlapTag>
-                            <span className="text-brutal-yellow font-black">.</span>
+                {/* 2. Coherent Central Content Cluster */}
+                <div className="my-auto flex flex-col items-center justify-center gap-6 sm:gap-7 md:gap-8 w-full max-w-4xl py-4 sm:py-6">
+                    {/* Bold Expressive Headline */}
+                    <motion.h1
+                        variants={heroTitleVariants}
+                        className="font-heading text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black leading-[0.92] tracking-tighter text-brutal-black"
+                    >
+                        Hi, I'm{" "}
+                        <span className="relative inline-block">
+                            <span className="relative z-10">CH</span>
+                            <DrawUnderline />
                         </span>
-                    </p>
-                    <p className="font-mono text-xs sm:text-sm text-brutal-muted max-w-xl mx-auto leading-relaxed">
-                        Full-stack software engineer crafting resilient cloud architectures, containerized microservices, and tactile Neo-Brutalist interfaces.
-                    </p>
-                </motion.div>
+                        <PopDot delay={0.6} className="text-brutal-purple text-5xl sm:text-7xl md:text-8xl lg:text-9xl align-baseline" />
+                    </motion.h1>
 
-                {/* 4. Core Tech Stack Ribbon (Provides Visual Weight & Substance) */}
-                <motion.div
-                    variants={heroBadgeVariants}
-                    className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 max-w-xl pt-1"
-                >
-                    {skills.map((skill, index) => (
-                        <motion.div
-                            key={skill.label}
-                            initial={{ opacity: 0, scale: 0.9, y: 8 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            transition={{ delay: 0.4 + index * 0.05, type: "spring", stiffness: 400, damping: 18 }}
-                            className="inline-block"
-                        >
-                            <BrutalBadge
-                                color={skill.color}
-                                className="text-xs px-2.5 py-1 font-mono font-bold border-2 border-brutal-border shadow-[2px_2px_0px_0px_var(--theme-border)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all cursor-default"
+                    {/* Tagline & Subtitle */}
+                    <motion.div variants={heroTaglineVariants} className="space-y-3 max-w-3xl mx-auto">
+                        <p className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl text-brutal-black font-bold leading-tight">
+                            I build high-performance web systems with{" "}
+                            <span className="inline-flex items-center gap-1.5 align-baseline flex-nowrap">
+                                <SlapTag delay={0.3} rotate={-2} className="bg-brutal-cyan text-black px-2.5 sm:px-3 py-0.5 sm:py-1 border-2 border-brutal-border font-bold shadow-[2px_2px_0px_0px_var(--theme-border)] text-base sm:text-xl md:text-2xl">
+                                    React 19
+                                </SlapTag>
+                                <span className="text-brutal-muted font-mono">&amp;</span>
+                                <SlapTag delay={0.45} rotate={2} className="bg-brutal-purple text-white px-2.5 sm:px-3 py-0.5 sm:py-1 border-2 border-brutal-border font-bold shadow-[2px_2px_0px_0px_var(--theme-border)] text-base sm:text-xl md:text-2xl">
+                                    .NET 10
+                                </SlapTag>
+                                <span className="text-brutal-yellow font-black">.</span>
+                            </span>
+                        </p>
+                        <p className="font-mono text-xs sm:text-sm md:text-base text-brutal-muted max-w-2xl mx-auto leading-relaxed">
+                            Full-stack software engineer crafting resilient cloud architectures, containerized microservices, and tactile Neo-Brutalist interfaces.
+                        </p>
+                    </motion.div>
+
+                    {/* Core Tech Stack Ribbon */}
+                    <motion.div
+                        variants={heroBadgeVariants}
+                        className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 max-w-2xl"
+                    >
+                        {skills.map((skill, index) => (
+                            <motion.div
+                                key={skill.label}
+                                initial={{ opacity: 0, scale: 0.9, y: 8 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                transition={{ delay: 0.4 + index * 0.05, type: "spring", stiffness: 400, damping: 18 }}
+                                className="inline-block"
                             >
-                                {skill.label}
-                            </BrutalBadge>
-                        </motion.div>
-                    ))}
-                </motion.div>
+                                <BrutalBadge
+                                    color={skill.color}
+                                    className="text-xs sm:text-sm px-3 py-1 font-mono font-bold border-2 border-brutal-border shadow-[2px_2px_0px_0px_var(--theme-border)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all cursor-default"
+                                >
+                                    {skill.label}
+                                </BrutalBadge>
+                            </motion.div>
+                        ))}
+                    </motion.div>
 
-                {/* 5. Action Buttons Group (Balanced Contrast & Alignment) */}
-                <motion.div
-                    variants={heroButtonsContainerVariants}
-                    className="flex flex-wrap justify-center items-center gap-3 pt-2"
-                >
-                    <Link to="/projects">
-                        <BrutalButton variant="primary" size="md" className="flex items-center gap-2">
-                            Explore Projects <ArrowRight className="w-4 h-4" />
-                        </BrutalButton>
-                    </Link>
-                    <Link to="/devlog">
-                        <BrutalButton variant="white" size="md" className="flex items-center gap-2">
-                            Read DevLog <Terminal className="w-4 h-4" />
-                        </BrutalButton>
-                    </Link>
-                    <Link to="/daily">
-                        <BrutalButton variant="cyan" size="md" className="flex items-center gap-2">
-                            My Daily Life <Sparkles className="w-4 h-4" />
-                        </BrutalButton>
-                    </Link>
-                    <Link to="/components">
-                        <BrutalButton variant="white" size="md" className="flex items-center gap-2">
-                            Design System <Palette className="w-4 h-4" />
-                        </BrutalButton>
-                    </Link>
-                </motion.div>
+                    {/* Prominent Action CTAs */}
+                    <motion.div
+                        variants={heroButtonsContainerVariants}
+                        className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 pt-1 sm:pt-2"
+                    >
+                        <Link to="/projects">
+                            <BrutalButton variant="primary" size="lg" className="flex items-center gap-2 text-sm sm:text-base font-black">
+                                Explore Projects <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                            </BrutalButton>
+                        </Link>
+                        <Link to="/daily">
+                            <BrutalButton variant="cyan" size="lg" className="flex items-center gap-2 text-sm sm:text-base font-black">
+                                My Daily Life <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
+                            </BrutalButton>
+                        </Link>
+                        <Link to="/devlog">
+                            <BrutalButton variant="white" size="lg" className="flex items-center gap-2 text-sm sm:text-base font-black">
+                                Read DevLog <Terminal className="w-4 h-4 sm:w-5 sm:h-5" />
+                            </BrutalButton>
+                        </Link>
+                        <Link to="/components">
+                            <BrutalButton variant="white" size="lg" className="flex items-center gap-2 text-sm sm:text-base font-black">
+                                Design System <Palette className="w-4 h-4 sm:w-5 sm:h-5" />
+                            </BrutalButton>
+                        </Link>
+                    </motion.div>
+                </div>
 
-                {/* 6. Bouncing Scroll Guide */}
+                {/* 3. Bouncing Scroll Guide Pinned to Viewport Bottom */}
                 <motion.button
-                    animate={{ y: [0, 5, 0] }}
+                    animate={{ y: [0, 8, 0] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                     onClick={() => {
                         document.getElementById("about-section")?.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="flex flex-col items-center gap-1 text-brutal-muted hover:text-brutal-black font-mono text-[11px] uppercase font-bold pt-4 cursor-pointer transition-colors"
+                    className="flex flex-col items-center gap-1.5 text-brutal-muted hover:text-brutal-black font-mono text-xs uppercase font-bold pt-2 pb-2 sm:pb-4 cursor-pointer transition-colors"
                 >
                     <span>Scroll to Explore</span>
-                    <ArrowDown className="w-3.5 h-3.5 text-brutal-black" />
+                    <ArrowDown className="w-4 h-4 text-brutal-black" />
                 </motion.button>
             </motion.section>
 
