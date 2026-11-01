@@ -8,17 +8,12 @@ import {
     ExternalLink,
     Github,
     Terminal,
-    Cpu,
-    Database,
-    Layers,
     GraduationCap,
     Zap,
     Wrench,
     Lightbulb,
     Sparkles,
     Palette,
-    Server,
-    Activity,
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import {
@@ -27,7 +22,6 @@ import {
     SlapTag,
     BlockReveal,
     TerminalType,
-    HoverTiltCard,
 } from "@/components/ui/MotionEffects";
 import { useQuery } from "@tanstack/react-query";
 import { gridItemsApi, type GridItem } from "@/api/gridItems";
@@ -111,7 +105,7 @@ const aboutCardsContainerVariants: Variants = {
 };
 
 const aboutCardVariants: Variants = {
-    hidden: { opacity: 0, y: 60, scale: 0.96 },
+    hidden: { opacity: 0, y: 50, scale: 0.96 },
     visible: {
         opacity: 1,
         y: 0,
@@ -137,18 +131,6 @@ export function HomePage() {
         },
     });
 
-    // Fetch real devlogs for recent notes
-    const { data: devlogs = [] } = useQuery<GridItem[]>({
-        queryKey: ["grid-items", "DevLog"],
-        queryFn: async () => {
-            try {
-                return await gridItemsApi.getAll("DevLog");
-            } catch {
-                return [];
-            }
-        },
-    });
-
     // Fetch real daily photography
     const { data: dailies = [] } = useQuery<GridItem[]>({
         queryKey: ["grid-items", "Daily"],
@@ -164,7 +146,7 @@ export function HomePage() {
     return (
         <div className="w-full flex flex-col items-center overflow-x-hidden">
             {/* ═══════════════════════════════════════════════════════════════
-                1. IMMERSIVE FULL-VIEWPORT HERO ENTRANCE (MAX IMPACT & MOTION)
+                HERO SECTION: IMMERSIVE FULL-VIEWPORT ENTRANCE
                ═══════════════════════════════════════════════════════════════ */}
             <motion.section
                 variants={heroContainerVariants}
@@ -256,7 +238,7 @@ export function HomePage() {
                     animate={{ y: [0, 8, 0] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                     onClick={() => {
-                        document.getElementById("workstation-section")?.scrollIntoView({ behavior: "smooth" });
+                        document.getElementById("about-section")?.scrollIntoView({ behavior: "smooth" });
                     }}
                     className="flex flex-col items-center gap-1.5 text-brutal-muted hover:text-brutal-black font-mono text-xs uppercase font-bold pt-8 cursor-pointer transition-colors"
                 >
@@ -266,101 +248,7 @@ export function HomePage() {
             </motion.section>
 
             {/* ═══════════════════════════════════════════════════════════════
-                2. DEVELOPER WORKSTATION & COMMAND CENTER (HIGH IMPACT 3D)
-               ═══════════════════════════════════════════════════════════════ */}
-            <section id="workstation-section" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div className="bg-brutal-white border-2 border-brutal-border shadow-[8px_8px_0px_0px_var(--theme-border)] p-6 sm:p-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                        {/* Left: 3D Developer Workstation in HoverTiltCard (Strictly NO human figures) */}
-                        <div className="lg:col-span-7">
-                            <HoverTiltCard>
-                                <div className="relative border-2 border-brutal-border bg-brutal-bg shadow-[6px_6px_0px_0px_var(--theme-border)] overflow-hidden group">
-                                    <img
-                                        src="/images/hero-workstation-3d.jpg"
-                                        alt="High-Performance Developer Workstation Setup"
-                                        className="w-full aspect-[16/10] object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                                        loading="eager"
-                                    />
-
-                                    {/* Top Corner Badges */}
-                                    <div className="absolute top-3 left-3 bg-brutal-white/95 backdrop-blur-sm border-2 border-brutal-border px-3 py-1 flex items-center gap-2 shadow-[2px_2px_0px_0px_var(--theme-border)]">
-                                        <Cpu className="w-3.5 h-3.5 text-brutal-purple" />
-                                        <span className="font-mono text-xs font-bold uppercase text-brutal-black">
-                                            Developer Rig
-                                        </span>
-                                    </div>
-
-                                    <div className="absolute top-3 right-3 bg-brutal-yellow text-black font-mono text-xs font-bold uppercase px-3 py-1 border-2 border-brutal-border shadow-[2px_2px_0px_0px_var(--theme-border)]">
-                                        ● 2026 Active
-                                    </div>
-
-                                    {/* Bottom Rig Spec Banner */}
-                                    <div className="absolute bottom-3 left-3 right-3 bg-brutal-white/95 backdrop-blur-md border-2 border-brutal-border px-3 py-2 flex items-center justify-between shadow-[2px_2px_0px_0px_var(--theme-border)]">
-                                        <span className="font-mono text-xs font-bold text-brutal-black flex items-center gap-2">
-                                            <Terminal className="w-3.5 h-3.5 text-brutal-lime" />
-                                            Hardware Engine: 4K Dual Displays · M-Series Rig
-                                        </span>
-                                        <span className="font-mono text-[10px] uppercase font-bold text-brutal-muted hidden sm:inline">
-                                            3D Interactive Tilt
-                                        </span>
-                                    </div>
-                                </div>
-                            </HoverTiltCard>
-                        </div>
-
-                        {/* Right: Command Center Telemetry & Quick Specs */}
-                        <div className="lg:col-span-5 space-y-6">
-                            <div>
-                                <span className="font-mono text-xs font-bold uppercase text-brutal-muted">Hardware & Environment</span>
-                                <h2 className="font-heading text-3xl sm:text-4xl font-black uppercase text-brutal-black">
-                                    Engineering Command Center<span className="text-brutal-yellow">.</span>
-                                </h2>
-                            </div>
-
-                            <p className="font-mono text-sm text-brutal-muted leading-relaxed">
-                                Engineered for low-latency iteration, rapid local container testing, and strict type verification across the entire web stack.
-                            </p>
-
-                            <div className="space-y-3 pt-2">
-                                <div className="p-3 bg-brutal-bg border-2 border-brutal-border flex items-center justify-between">
-                                    <span className="font-mono text-xs font-bold uppercase text-brutal-black flex items-center gap-2">
-                                        <Server className="w-4 h-4 text-brutal-cyan" /> Architecture
-                                    </span>
-                                    <span className="font-mono text-xs font-bold text-brutal-black">React 19 + .NET 10 API</span>
-                                </div>
-                                <div className="p-3 bg-brutal-bg border-2 border-brutal-border flex items-center justify-between">
-                                    <span className="font-mono text-xs font-bold uppercase text-brutal-black flex items-center gap-2">
-                                        <Activity className="w-4 h-4 text-brutal-lime" /> Deployment
-                                    </span>
-                                    <span className="font-mono text-xs font-bold text-brutal-black">Dockerized Self-Hosted</span>
-                                </div>
-                                <div className="p-3 bg-brutal-bg border-2 border-brutal-border flex items-center justify-between">
-                                    <span className="font-mono text-xs font-bold uppercase text-brutal-black flex items-center gap-2">
-                                        <GraduationCap className="w-4 h-4 text-brutal-purple" /> Institution
-                                    </span>
-                                    <span className="font-mono text-xs font-bold text-brutal-black">Monash University (MIT)</span>
-                                </div>
-                            </div>
-
-                            <div className="pt-2 flex gap-4">
-                                <Link to="/projects">
-                                    <BrutalButton variant="primary" size="md" className="flex items-center gap-2">
-                                        View Projects <ArrowRight className="w-4 h-4" />
-                                    </BrutalButton>
-                                </Link>
-                                <Link to="/components">
-                                    <BrutalButton variant="white" size="md" className="flex items-center gap-2">
-                                        Design Specs <Palette className="w-4 h-4" />
-                                    </BrutalButton>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* ═══════════════════════════════════════════════════════════════
-                3. ABOUT ME & ENGINEERING DNA (ANIMATED BENTO GRID)
+                1. ABOUT ME (ANIMATED BENTO GRID · PURE NEO-BRUTALISM)
                ═══════════════════════════════════════════════════════════════ */}
             <section id="about-section" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
                 <motion.div
@@ -428,7 +316,7 @@ export function HomePage() {
                     <motion.div variants={aboutCardVariants} className="md:col-span-2 flex flex-col h-full transform-gpu">
                         <BrutalCard color="purple" hoverable className="text-white h-full">
                             <h3 className="font-heading text-2xl font-black uppercase mb-3 flex items-center gap-2.5">
-                                <Zap className="w-6 h-6 text-brutal-yellow" /> Core Focus
+                                <Zap className="w-6 h-6 text-brutal-yellow" /> What I Do
                             </h3>
                             <div className="text-sm sm:text-base leading-relaxed text-white/95 min-h-[60px]">
                                 <TerminalType
@@ -442,35 +330,7 @@ export function HomePage() {
                         </BrutalCard>
                     </motion.div>
 
-                    {/* Card 3: Cloud Infrastructure (Spans 2 cols) */}
-                    <motion.div variants={aboutCardVariants} className="md:col-span-2 flex flex-col h-full transform-gpu">
-                        <HoverTiltCard className="h-full">
-                            <div className="bg-brutal-white border-2 border-brutal-border shadow-[4px_4px_0px_0px_var(--theme-border)] p-4 h-full flex flex-col justify-between group overflow-hidden">
-                                <div className="space-y-3">
-                                    <div className="flex items-center justify-between">
-                                        <h3 className="font-heading text-xl font-black uppercase flex items-center gap-2 text-brutal-black">
-                                            <Database className="w-5 h-5 text-brutal-cyan" /> Cloud Architecture
-                                        </h3>
-                                        <span className="font-mono text-[10px] bg-brutal-cyan text-black font-bold px-2 py-0.5 border border-brutal-border">
-                                            Dockerized
-                                        </span>
-                                    </div>
-                                    <div className="aspect-[16/8] overflow-hidden border-2 border-brutal-border bg-brutal-bg">
-                                        <img
-                                            src="/images/cloud-architecture-3d.jpg"
-                                            alt="Cloud Architecture 3D Model"
-                                            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                                        />
-                                    </div>
-                                </div>
-                                <p className="font-mono text-xs text-brutal-muted pt-3">
-                                    PostgreSQL 17, containerized services, and automated CI/CD deployment pipelines.
-                                </p>
-                            </div>
-                        </HoverTiltCard>
-                    </motion.div>
-
-                    {/* Card 4: Tech Stack (Spans 2 cols) */}
+                    {/* Card 3: Tech Stack (Spans 2 cols) */}
                     <motion.div variants={aboutCardVariants} className="md:col-span-2 flex flex-col h-full transform-gpu">
                         <BrutalCard color="cyan" hoverable className="h-full flex flex-col justify-between">
                             <div>
@@ -504,7 +364,7 @@ export function HomePage() {
                         </BrutalCard>
                     </motion.div>
 
-                    {/* Card 5: Engineering Philosophy (Spans all 4 cols) */}
+                    {/* Card 4: Engineering Philosophy (Spans all 4 cols) */}
                     <motion.div variants={aboutCardVariants} className="md:col-span-4 flex flex-col h-full transform-gpu">
                         <BrutalCard color="white" hoverable className="h-full">
                             <h3 className="font-heading text-2xl sm:text-3xl font-black uppercase mb-4 flex items-center gap-2.5 text-brutal-black">
@@ -525,7 +385,7 @@ export function HomePage() {
             </section>
 
             {/* ═══════════════════════════════════════════════════════════════
-                4. FEATURED PROJECTS SHOWCASE (REAL BACKEND DATA)
+                2. FEATURED PROJECTS SHOWCASE (REAL BACKEND DATA)
                ═══════════════════════════════════════════════════════════════ */}
             <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-8">
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-2 border-brutal-border pb-4">
@@ -608,142 +468,7 @@ export function HomePage() {
             </section>
 
             {/* ═══════════════════════════════════════════════════════════════
-                5. SYSTEM ARCHITECTURE & ENGINEERING SPECS
-               ═══════════════════════════════════════════════════════════════ */}
-            <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="bg-brutal-white border-2 border-brutal-border shadow-[8px_8px_0px_0px_var(--theme-border)] p-6 sm:p-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                        {/* Visual: 3D Cloud Infrastructure Render */}
-                        <div className="lg:col-span-5 border-2 border-brutal-border bg-brutal-bg shadow-[4px_4px_0px_0px_var(--theme-border)] overflow-hidden">
-                            <img
-                                src="/images/cloud-architecture-3d.jpg"
-                                alt="Cloud Architecture & Server Infrastructure"
-                                className="w-full aspect-[4/3] object-cover object-center"
-                            />
-                            <div className="p-3 bg-brutal-white border-t-2 border-brutal-border flex items-center justify-between">
-                                <span className="font-mono text-xs font-bold text-brutal-black uppercase flex items-center gap-1.5">
-                                    <Database className="w-4 h-4 text-brutal-cyan" /> Cloud-Native Stack
-                                </span>
-                                <span className="font-mono text-[10px] text-brutal-muted">Dockerized & Self-Hosted</span>
-                            </div>
-                        </div>
-
-                        {/* Specs Grid */}
-                        <div className="lg:col-span-7 space-y-6">
-                            <div>
-                                <span className="font-mono text-xs font-bold uppercase text-brutal-muted">Under the Hood</span>
-                                <h2 className="font-heading text-3xl sm:text-4xl font-black uppercase text-brutal-black">
-                                    Production-Grade Architecture<span className="text-brutal-purple">.</span>
-                                </h2>
-                            </div>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div className="p-4 bg-brutal-bg border-2 border-brutal-border space-y-2">
-                                    <div className="flex items-center gap-2">
-                                        <Layers className="w-4 h-4 text-brutal-cyan" />
-                                        <h4 className="font-heading font-black text-sm uppercase text-brutal-black">Frontend Engine</h4>
-                                    </div>
-                                    <p className="font-mono text-xs text-brutal-muted leading-relaxed">
-                                        React 19 SPA, Vite build tool, Tailwind v4 design system, and seamless View Transitions API theming.
-                                    </p>
-                                </div>
-
-                                <div className="p-4 bg-brutal-bg border-2 border-brutal-border space-y-2">
-                                    <div className="flex items-center gap-2">
-                                        <Cpu className="w-4 h-4 text-brutal-purple" />
-                                        <h4 className="font-heading font-black text-sm uppercase text-brutal-black">Backend Services</h4>
-                                    </div>
-                                    <p className="font-mono text-xs text-brutal-muted leading-relaxed">
-                                        ASP.NET Core 10 Web API, Entity Framework Core ORM, ASP.NET Core Identity authentication with JWTs.
-                                    </p>
-                                </div>
-
-                                <div className="p-4 bg-brutal-bg border-2 border-brutal-border space-y-2">
-                                    <div className="flex items-center gap-2">
-                                        <Database className="w-4 h-4 text-brutal-blue" />
-                                        <h4 className="font-heading font-black text-sm uppercase text-brutal-black">Database Storage</h4>
-                                    </div>
-                                    <p className="font-mono text-xs text-brutal-muted leading-relaxed">
-                                        PostgreSQL 17 deployed in Docker, automated relational schema migrations, and physical file static routing.
-                                    </p>
-                                </div>
-
-                                <div className="p-4 bg-brutal-bg border-2 border-brutal-border space-y-2">
-                                    <div className="flex items-center gap-2">
-                                        <Terminal className="w-4 h-4 text-brutal-lime" />
-                                        <h4 className="font-heading font-black text-sm uppercase text-brutal-black">Telemetry & Analytics</h4>
-                                    </div>
-                                    <p className="font-mono text-xs text-brutal-muted leading-relaxed">
-                                        Session-deduplicated hit tracking, visitor geolocation/IP leaderboard, and real-time trend analytics.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="pt-2">
-                                <Link to="/components">
-                                    <BrutalButton variant="cyan" size="md" className="flex items-center gap-2">
-                                        Inspect Component Library <ArrowRight className="w-4 h-4" />
-                                    </BrutalButton>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* ═══════════════════════════════════════════════════════════════
-                6. RECENT DEVLOGS (LEARNING IN PUBLIC)
-               ═══════════════════════════════════════════════════════════════ */}
-            <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-8">
-                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-2 border-brutal-border pb-4">
-                    <div>
-                        <span className="font-mono text-xs font-bold uppercase text-brutal-muted">Learning in Public</span>
-                        <h2 className="font-heading text-3xl sm:text-4xl font-black uppercase text-brutal-black">
-                            Engineering DevLogs<span className="text-brutal-yellow">.</span>
-                        </h2>
-                    </div>
-                    <Link
-                        to="/devlog"
-                        className="font-mono text-xs font-bold uppercase flex items-center gap-1.5 text-brutal-black hover:text-brutal-yellow transition-colors"
-                    >
-                        View All Entries ({devlogs.length}) <ArrowRight className="w-4 h-4" />
-                    </Link>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {devlogs.slice(0, 3).map((log) => (
-                        <Link
-                            key={log.id}
-                            to={`/devlog/${log.id}`}
-                            className="bg-brutal-white border-2 border-brutal-border p-6 shadow-[4px_4px_0px_0px_var(--theme-border)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all flex flex-col justify-between group"
-                        >
-                            <div className="space-y-3">
-                                <div className="flex items-center justify-between">
-                                    <span className="font-mono text-[10px] bg-brutal-bg text-brutal-muted border border-brutal-border px-2 py-0.5 uppercase font-bold">
-                                        {log.tags?.[0] || "DEVLOG"}
-                                    </span>
-                                    <span className="font-mono text-[10px] text-brutal-muted">
-                                        {new Date(log.updatedAt || log.createdAt || Date.now()).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
-                                    </span>
-                                </div>
-                                <h3 className="font-heading text-lg font-black uppercase text-brutal-black group-hover:text-brutal-yellow transition-colors leading-snug">
-                                    {log.title}
-                                </h3>
-                                <p className="font-mono text-xs text-brutal-muted line-clamp-3 leading-relaxed">
-                                    {log.content || log.problemDescription || "Technical breakdown and solution pattern implemented in code."}
-                                </p>
-                            </div>
-                            <div className="pt-4 mt-4 border-t border-brutal-border/30 flex items-center justify-between text-xs font-mono font-bold uppercase text-brutal-black">
-                                <span>Read Entry</span>
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                            </div>
-                        </Link>
-                    ))}
-                </div>
-            </section>
-
-            {/* ═══════════════════════════════════════════════════════════════
-                7. VISUAL MOMENTS & PHOTOGRAPHY
+                3. LIFE & PHOTOGRAPHY (REAL MOMENTS & CAPTURES)
                ═══════════════════════════════════════════════════════════════ */}
             {dailies.length > 0 && (
                 <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-8">
@@ -802,7 +527,7 @@ export function HomePage() {
             )}
 
             {/* ═══════════════════════════════════════════════════════════════
-                8. FOOTER CONTACT & CALL TO ACTION
+                4. LET'S BUILD SOMETHING EXCEPTIONAL (CALL TO ACTION)
                ═══════════════════════════════════════════════════════════════ */}
             <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div className="bg-brutal-white border-2 border-brutal-border shadow-[8px_8px_0px_0px_var(--theme-border)] p-8 sm:p-12 text-center space-y-6">
